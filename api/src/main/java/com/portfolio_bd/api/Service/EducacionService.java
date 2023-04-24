@@ -20,15 +20,23 @@ import org.springframework.web.server.ResponseStatusException;
  */
 @Service
 public class EducacionService implements IEducacionService{
-    @Autowired
-    private final EducacionRepository educacionRepository;
     
-    public EducacionService(EducacionRepository educacionRepository) {
-        this.educacionRepository = educacionRepository;
-    }
+    @Autowired
+    private EducacionRepository educacionRepository;
+    
+    @Autowired 
+    private PersonaRepository personaRepository;
     
     @Override
-    public Educacion createEducacion(EducacionDto educacionDto, Persona persona) {
+    public EducacionDto getEducacion(Long id) {
+        Educacion educacion = educacionRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Educacion not found"));
+        return EducacionDto.fromEntity(educacion);
+    }
+    @Override
+    public Educacion createEducacion(EducacionDto educacionDto, Long personaId) {
+        Persona persona = personaRepository.findById(personaId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Persona not found with id " + personaId));
         Educacion educacion = new Educacion();
         educacion.setTituloEdu(educacionDto.getTituloEdu());
         educacion.setInstitucionEdu(educacionDto.getInstitucionEdu());
@@ -38,7 +46,12 @@ public class EducacionService implements IEducacionService{
     
     @Override
     public void deleteEducacion(Long educacionId) {
-        educacionRepository.deleteById(educacionId);
+        Educacion educacion = educacionRepository.findById(educacionId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Educacion not found with id " + educacionId));
+        Persona persona = educacion.getPersona();
+        persona.deleteEducacion(educacionId);
+        personaRepository.save(persona);
+        educacionRepository.delete(educacion);
     }
     
     @Override
@@ -49,6 +62,7 @@ public class EducacionService implements IEducacionService{
                           .collect(Collectors.toList());
     }
     
+    @Override
     public EducacionDto updateEducacion(Long educacionId, EducacionDto educacionDto) {
         Educacion educacion = educacionRepository.findById(educacionId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Persona not found with id " + educacionId));

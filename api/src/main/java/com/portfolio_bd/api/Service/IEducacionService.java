@@ -6,7 +6,6 @@ package com.portfolio_bd.api.Service;
 
 import com.portfolio_bd.api.Dto.EducacionDto;
 import com.portfolio_bd.api.Model.Educacion;
-import com.portfolio_bd.api.Model.Persona;
 import java.util.List;
 
 /**
@@ -15,9 +14,13 @@ import java.util.List;
  */
 public interface IEducacionService {
     
+    public EducacionDto getEducacion(Long id);
+            
     List<EducacionDto> getAllEducaciones();
     
-    public Educacion createEducacion(EducacionDto educacionDto, Persona persona); 
+    public Educacion createEducacion(EducacionDto educacionDto, Long personaId);
     
     public void deleteEducacion(Long educacionId);
+    
+    public EducacionDto updateEducacion(Long educacionId, EducacionDto educacionDto);
 }

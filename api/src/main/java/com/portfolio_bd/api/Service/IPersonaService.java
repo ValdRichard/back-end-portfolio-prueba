@@ -24,5 +24,5 @@ public interface IPersonaService {
     
     public Persona createPersona(Persona persona);
     
-    public void updatePersona(Long id, PersonaDto personaDto);
+    public PersonaDto updatePersona(Long id, PersonaDto personaDto);
 }

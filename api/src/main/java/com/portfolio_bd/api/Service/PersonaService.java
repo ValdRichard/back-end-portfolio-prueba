@@ -24,13 +24,11 @@ import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public class PersonaService implements IPersonaService{
+    
     @Autowired
-    private final PersonaRepository personaRepository;
+    private PersonaRepository personaRepository;
 
-    public PersonaService(PersonaRepository personaRepository) {
-        this.personaRepository = personaRepository;
-    }
-
+    
     @Override
     public PersonaDto getPersona(Long id) {
         Persona persona = personaRepository.findById(id)
@@ -38,25 +36,6 @@ public class PersonaService implements IPersonaService{
         return PersonaDto.fromEntity(persona);
     }
 
-    
-    @Override
-    public PersonaDto addEducacionToPersona(Long id, Educacion educacion) {
-        Persona persona = personaRepository.findById(id) 
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Persona not found with id " + id));
-        educacion.setPersona(persona);
-        persona.agregarEducacion(educacion);
-        personaRepository.save(persona);
-        return PersonaDto.fromEntity(persona);
-    }
-
-    @Override
-    public List<EducacionDto> getAllEducacionesFromPersona(Long personaId) {
-        Persona persona = personaRepository.findById(personaId)
-                .orElseThrow(() -> new RuntimeException("Persona not found"));
-        List<Educacion> educaciones = persona.getEducaciones();
-        return educaciones.stream().map(EducacionDto::fromEntity).collect(Collectors.toList());
-    }
-    
     @Transactional
     @Override
     public Persona createPersona(Persona persona) {
@@ -65,7 +44,7 @@ public class PersonaService implements IPersonaService{
 
     @Override
     @Transactional
-    public void updatePersona(Long id, PersonaDto personaDto) {
+    public PersonaDto updatePersona(Long id, PersonaDto personaDto) {
         Persona persona = personaRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Persona not found with id " + id));
 
@@ -79,42 +58,33 @@ public class PersonaService implements IPersonaService{
                 .collect(Collectors.toList()));
 
         personaRepository.save(persona);
+        return PersonaDto.fromEntity(persona);
+    }
+    
+    @Override
+    public PersonaDto addEducacionToPersona(Long id, Educacion educacion) {
+        Persona persona = personaRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Persona not found with id " + id));
+        educacion.setPersona(persona);
+        persona.agregarEducacion(educacion);
+        personaRepository.save(persona);
+        return PersonaDto.fromEntity(persona);
     }
 
+    public void deleteEducacionInPersona(Long personaId, Long educacionId) {
+        Persona persona = personaRepository.findById(personaId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Persona not found with id " + personaId));
+        persona.deleteEducacion(educacionId);
+        personaRepository.save(persona);
+    }
+    
+    @Override
+    public List<EducacionDto> getAllEducacionesFromPersona(Long personaId) {
+        Persona persona = personaRepository.findById(personaId)
+                .orElseThrow(() -> new RuntimeException("Persona not found"));
+        List<Educacion> educaciones = persona.getEducaciones();
+        return educaciones.stream().map(EducacionDto::fromEntity).collect(Collectors.toList());
+    }
+    
 }
 
-//@Service
-//public class PersonaService implements IPersonaService {
-//
-//    @Autowired public PersonaRepository repoPerso;
-//    
-//    private final Persona perso = Persona.getInstance();
-//    
-//    
-//    @Override
-//    public void crearPersona() {
-//        perso.setNombre("Ricardo");
-//        repoPerso.save(perso);
-//    }
-//    @Override
-//    public boolean editarPersona(Long id, PersonaDto perso) {
-//        if (Persona.getInstance()== null) {
-//            return false;
-//        } else {
-//            Persona persoEditada = Persona.getInstance();
-//            persoEditada.setNombre(perso.getNombre());
-//            persoEditada.setOcupacion(perso.getOcupacion());
-//            persoEditada.setBannerUrl(perso.getBannerUrl());
-//            persoEditada.setEmail(perso.getEmail());
-//            persoEditada.setLinkedinUrl(perso.getLinkedinUrl());
-//            persoEditada.setGithubUrl(perso.getGithubUrl());
-//            persoEditada.setDescripcion(perso.getDescripcion());
-//            persoEditada.setImgUrl(perso.getImgUrl());
-//            repoPerso.save(persoEditada);
-//            return true;
-//        }
-//    }
-//
-//
-//    
-//}

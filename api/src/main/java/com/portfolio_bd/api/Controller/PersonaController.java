@@ -28,12 +28,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/personas")
 public class PersonaController {
-    private final IPersonaService personaService;
-
-    public PersonaController(IPersonaService personaService) {
-        this.personaService = personaService;
-    }
     
+    @Autowired
+    private IPersonaService personaService;
+
     @PostMapping("/create")
     public PersonaDto createPersona(@RequestBody PersonaDto personaDto) {
         Persona persona = PersonaDto.toEntity(personaDto);
@@ -51,13 +49,6 @@ public class PersonaController {
     public ResponseEntity<Void> updatePersona(@PathVariable Long id, @RequestBody PersonaDto personaDto) {
         personaService.updatePersona(id, personaDto);
         return ResponseEntity.noContent().build();
-    }
-
-
-    @PostMapping("/{id}/educaciones")
-    public PersonaDto addEducacionToPersona(@PathVariable Long id, @RequestBody EducacionDto educacionDto) {
-        Educacion educacion = EducacionDto.toEntity(educacionDto);
-        return personaService.addEducacionToPersona(id, educacion);
     }
 
     @GetMapping("/{id}/educaciones")

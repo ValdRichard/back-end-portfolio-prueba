@@ -15,6 +15,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -52,6 +53,16 @@ public class Persona {
         return educaciones.get(indice);
     }
     
+    public void deleteEducacion(Long educacionId) {
+    for (Iterator<Educacion> it = educaciones.iterator(); it.hasNext();) {
+        Educacion educacion = it.next();
+        if (educacion.getId().equals(educacionId)) {
+            educacion.setPersona(null);
+            it.remove();
+        }
+    }
+    }
+    
     public List<Educacion> getAllEducaciones() {
         return this.educaciones;
     }
@@ -60,51 +71,3 @@ public class Persona {
         return id;
     }
 }
-//Aplicado de patron "Singleton"
-//
-//@Entity
-//@Setter @Getter
-//public class Persona {
-//    
-//    private static Persona INSTANCE;
-//    
-//    @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
-//    private Long id;
-//    private String nombre;
-//    private String ocupacion;
-//    private String bannerUrl;
-//    private String email;
-//    private String linkedinUrl;
-//    private String githubUrl;
-//    private String descripcion;
-//    private String imgUrl;
-//    
-//    @OneToMany(mappedBy = "persona")
-//    private List<Educacion> educaciones = new ArrayList<>();
-//
-//    @OneToMany(mappedBy = "persona")
-//    private List<Experiencia> experiencias = new ArrayList<>(); ;
-//    
-//    @OneToMany(mappedBy = "persona")
-//    private List<HardSkill> habTecnicas = new ArrayList<>();;
-//
-//    @OneToMany(mappedBy = "persona")
-//    private List<SoftSkill> habBlandas = new ArrayList<>();;
-//
-//    @OneToMany(mappedBy = "persona")
-//    private List<Proyecto> proyectos = new ArrayList<>();;
-//    
-//    
-//
-//    private Persona(){        
-//    }
-//    
-//    public static Persona getInstance(){
-//        if(INSTANCE == null){
-//            INSTANCE = new Persona();
-//        }
-//        
-//        return INSTANCE;
-//    }
-//
-//}

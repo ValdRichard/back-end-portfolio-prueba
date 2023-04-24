@@ -25,6 +25,19 @@ public class EducacionDto {
     private String urlLogoEdu;
     private PersonaDto persona;
 
+    public EducacionDto(Educacion educacion) {
+        this.id = educacion.getId();
+        this.nivel = educacion.getNivel();
+        this.tituloEdu = educacion.getTituloEdu();
+        this.periodoEdu = educacion.getPeriodoEdu();
+        this.institucionEdu = educacion.getInstitucionEdu();
+        this.descripcionEdu = educacion.getDescripcionEdu();
+        this.urlLogoEdu = educacion.getUrlLogoEdu();
+        this.persona = new PersonaDto(educacion.getPersona().getId(),
+                                  educacion.getPersona().getNombre(),
+                                  educacion.getPersona().getApellido());
+    }
+    
     public static EducacionDto fromEntity(Educacion educacion) {
         EducacionDto dto = new EducacionDto(educacion);
         dto.setId(educacion.getId());
@@ -55,17 +68,6 @@ public class EducacionDto {
 
         return educacion;
     }
-    public EducacionDto(Educacion educacion) {
-        this.id = educacion.getId();
-        this.nivel = educacion.getNivel();
-        this.tituloEdu = educacion.getTituloEdu();
-        this.periodoEdu = educacion.getPeriodoEdu();
-        this.institucionEdu = educacion.getInstitucionEdu();
-        this.descripcionEdu = educacion.getDescripcionEdu();
-        this.urlLogoEdu = educacion.getUrlLogoEdu();
-        this.persona = new PersonaDto(educacion.getPersona());
-    }
-    
     
 }
 //@Setter @Getter
