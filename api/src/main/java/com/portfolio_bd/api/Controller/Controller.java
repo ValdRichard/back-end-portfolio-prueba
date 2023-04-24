@@ -16,9 +16,11 @@ import com.portfolio_bd.api.Dto.PortfolioDto;
 import com.portfolio_bd.api.Dto.ProyectoDto;
 import com.portfolio_bd.api.Dto.RespuestaDto;
 import com.portfolio_bd.api.Dto.SoftSkillDto;
+import com.portfolio_bd.api.Model.Persona;
 import com.portfolio_bd.api.Service.IEducacionService;
 import com.portfolio_bd.api.Service.IExperienciaService;
 import com.portfolio_bd.api.Service.IHardSkillService;
+import com.portfolio_bd.api.Service.IPersonaService;
 import com.portfolio_bd.api.Service.IPortfolioService;
 import com.portfolio_bd.api.Service.IProyectoService;
 import com.portfolio_bd.api.Service.ISoftSkillService;
@@ -41,14 +43,17 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @CrossOrigin (origins = "http://localhost:4200/", maxAge = 3600)
 public class Controller {
     
-    //inyecta las dependencias necesarias para ejecutar las peticiones que vengan del cliente
+    
     @Autowired private IEducacionService serviEdu;
     @Autowired private IExperienciaService serviExpe;
     @Autowired private IHardSkillService serviHabTecnica;
     @Autowired private ISoftSkillService serviHabBlanda;
     @Autowired private IProyectoService serviProyecto;
     @Autowired private IPortfolioService serviPortfolio;
-        
+    
+    
+    //Prueba 
+    @Autowired private IPersonaService serviPersona;
     
     @GetMapping ("/portfolio")
     @ResponseBody
@@ -67,23 +72,7 @@ public class Controller {
         RespuestaDto resp = new RespuestaDto(true, "¡La información personal ha sido actualizada!");
         return new ResponseEntity(resp, HttpStatus.OK);
     }
-    /*=============================================
-    //para pruebas 
-    @GetMapping ("/persona")
-    @ResponseBody
-    public ResponseEntity<Persona> getPersona() {
-        Persona perso = serviPortfolio.getPersona();
-        return new ResponseEntity<>(perso, HttpStatus.OK);
-    }
-     //para pruebas 
-    @GetMapping ("/listaEdu")
-    @ResponseBody
-    public List<EduDto> listarEduDto(){
-        return serviPortfolio.listarEduDto();
-    }
-    //============================================*/
     
-  
     
     @PostMapping ("/nuevoProyecto")
     public ResponseEntity<RespuestaDto> agregarProyecto(@RequestBody ProyectoDto proyecto){
@@ -109,8 +98,7 @@ public class Controller {
     }
     
     
-  // HABILIDAD BLANDA ABM
-    
+  
     @PostMapping ("/nuevaHabBlanda")
     public ResponseEntity<RespuestaDto> agregarHabBlanda(@RequestBody SoftSkillDto habBlanda){
         serviHabBlanda.crearSoftSkill(habBlanda);
@@ -136,7 +124,7 @@ public class Controller {
     }
    
     
-  // HABILIDAD TECNICA ABM
+  
     
     @PostMapping ("/nuevaHabTecnica")
     public ResponseEntity<RespuestaDto> agregarHabTecnica(@RequestBody HardSkillDto habTecnica){
@@ -163,7 +151,7 @@ public class Controller {
     }
   
     
-  // EXPERIENCIA ABM
+  
     
     @PostMapping ("/nuevaExpe")
     public ResponseEntity<RespuestaDto> agregarExperiencia(@RequestBody ExperienciaDto expe){
@@ -189,7 +177,7 @@ public class Controller {
     }
     
     
-  // EDUCACION ABM
+  
   
     @PostMapping ("/nuevaEdu")
     public ResponseEntity<RespuestaDto> agregarEducacion(@RequestBody EducacionDto edu){
@@ -213,5 +201,6 @@ public class Controller {
         RespuestaDto resp = new RespuestaDto(true, "¡El elemento ha sido actualizado!");
         return new ResponseEntity(resp, HttpStatus.OK);
     }
-      
+        
+        
 }

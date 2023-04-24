@@ -5,16 +5,19 @@
 package com.portfolio_bd.api.Service;
 
 import com.portfolio_bd.api.Dto.EducacionDto;
+import com.portfolio_bd.api.Model.Educacion;
+import com.portfolio_bd.api.Model.Persona;
+import java.util.List;
 
 /**
  *
  * @author valdiviaricardo
  */
 public interface IEducacionService {
-
-    public void crearEducacion(EducacionDto edu);
     
-    public boolean editarEducacion(Long id, EducacionDto edu);
+    List<EducacionDto> getAllEducaciones();
     
-    public void borrarEducacion(Long id);
+    public Educacion createEducacion(EducacionDto educacionDto, Persona persona); 
+    
+    public void deleteEducacion(Long educacionId);
 }

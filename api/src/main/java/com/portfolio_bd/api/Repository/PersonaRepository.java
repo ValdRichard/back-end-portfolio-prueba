@@ -16,3 +16,4 @@ import org.springframework.stereotype.Repository;
 public interface PersonaRepository extends JpaRepository <Persona, Long> {
     
 }
+

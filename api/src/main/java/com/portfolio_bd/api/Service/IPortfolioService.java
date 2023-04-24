@@ -24,7 +24,6 @@ public interface IPortfolioService {
     
     public Persona getPersona();
     
-    //Modificar persona
     public boolean editarPersona(PersonaDto perso);
     
     public PersonaDto getPersonaDto();
