@@ -8,6 +8,7 @@ package com.portfolio_bd.api.Model;
  *
  * @author valdiviaricardo
  */
+import com.portfolio_bd.api.Dto.PersonaDto;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -15,7 +16,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import java.io.Serializable;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -34,11 +34,20 @@ public class Educacion{
     private String urlLogoEdu;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "persona_id")
-    private Persona persona;
-    
-    
+    private PersonaDto persona;
+
     public Educacion(){
-        
     }
-    // constructors, getters, and setters
+
+    public Educacion(Long id, String nivel, String tituloEdu, String periodoEdu, String institucionEdu, 
+                     String descripcionEdu, String urlLogoEdu, PersonaDto persona) {
+        this.id = id;
+        this.nivel = nivel;
+        this.tituloEdu = tituloEdu;
+        this.periodoEdu = periodoEdu;
+        this.institucionEdu = institucionEdu;
+        this.descripcionEdu = descripcionEdu;
+        this.urlLogoEdu = urlLogoEdu;
+        this.persona = persona;
+    }
 }

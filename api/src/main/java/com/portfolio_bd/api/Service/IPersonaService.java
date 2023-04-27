@@ -18,9 +18,11 @@ public interface IPersonaService {
     
     public PersonaDto getPersona(Long id) ;
     
-    public PersonaDto addEducacionToPersona(Long personaId, Educacion educacion);
+    public EducacionDto addEducacionToPersona(Long id, Educacion educacion);
     
     public List<EducacionDto> getAllEducacionesFromPersona(Long personaId);
+    
+    public void deleteEducacionInPersona(Long personaId, Long educacionId);            
     
     public Persona createPersona(Persona persona);
     

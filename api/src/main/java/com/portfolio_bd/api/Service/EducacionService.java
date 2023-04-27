@@ -4,6 +4,7 @@
  */
 package com.portfolio_bd.api.Service;
 import com.portfolio_bd.api.Dto.EducacionDto;
+import com.portfolio_bd.api.Dto.PersonaDto;
 import com.portfolio_bd.api.Model.Educacion;
 import com.portfolio_bd.api.Model.Persona;
 import com.portfolio_bd.api.Repository.EducacionRepository;
@@ -52,7 +53,12 @@ public class EducacionService implements IEducacionService{
         persona.deleteEducacion(educacionId);
         personaRepository.save(persona);
         educacionRepository.delete(educacion);
+        PersonaDto personaDto = new PersonaDto(persona);
+        EducacionDto educacionDto = new EducacionDto(educacion);
+        educacionDto.setPersona(personaDto);
+        personaDto.removeEducacion(educacionId);
     }
+
     
     @Override
     public List<EducacionDto> getAllEducaciones() {

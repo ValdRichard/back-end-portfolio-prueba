@@ -9,7 +9,7 @@ package com.portfolio_bd.api.Dto;
  * @author valdiviaricardo
  */
 import com.portfolio_bd.api.Model.Educacion;
-import com.portfolio_bd.api.Model.Persona;
+import com.portfolio_bd.api.Service.IPersonaService;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,7 +25,7 @@ public class EducacionDto {
     private String urlLogoEdu;
     private PersonaDto persona;
 
-    public EducacionDto(Educacion educacion) {
+    public EducacionDto(Educacion educacion, IPersonaService personaService) {
         this.id = educacion.getId();
         this.nivel = educacion.getNivel();
         this.tituloEdu = educacion.getTituloEdu();
@@ -33,16 +33,15 @@ public class EducacionDto {
         this.institucionEdu = educacion.getInstitucionEdu();
         this.descripcionEdu = educacion.getDescripcionEdu();
         this.urlLogoEdu = educacion.getUrlLogoEdu();
-        this.persona = new PersonaDto(educacion.getPersona().getId(),
-                                  educacion.getPersona().getNombre(),
-                                  educacion.getPersona().getApellido());
+        if (educacion.getPersona() != null) {
+            this.persona = PersonaDto.fromEntity(educacion.getPersona(), personaService);
+        }
     }
     
-    public static EducacionDto fromEntity(Educacion educacion) {
-        EducacionDto dto = new EducacionDto(educacion);
+    public static EducacionDto fromEntity(Educacion educacion, IPersonaService personaService) {
+        EducacionDto dto = new EducacionDto(educacion, personaService);
         dto.setId(educacion.getId());
         dto.setNivel(educacion.getNivel());
-        dto.setPersona(PersonaDto.fromEntity(educacion.getPersona()));
         dto.setTituloEdu(educacion.getTituloEdu());
         dto.setPeriodoEdu(educacion.getPeriodoEdu());
         dto.setInstitucionEdu(educacion.getInstitucionEdu());
@@ -50,8 +49,8 @@ public class EducacionDto {
         dto.setUrlLogoEdu(educacion.getUrlLogoEdu());
         return dto;
     }
-
-    public static Educacion toEntity(EducacionDto educacionDto) {
+    
+    public static Educacion toEntity(EducacionDto educacionDto, IPersonaService personaService) {
         Educacion educacion = new Educacion();
         educacion.setId(educacionDto.getId());
         educacion.setNivel(educacionDto.getNivel());
@@ -62,11 +61,17 @@ public class EducacionDto {
         educacion.setUrlLogoEdu(educacionDto.getUrlLogoEdu());
 
         if (educacionDto.getPersona() != null) {
-            Persona persona = PersonaDto.toEntity(educacionDto.getPersona());
-            educacion.setPersona(persona);
+            PersonaDto personaDto = PersonaDto.fromEntity(personaService.getPersona(educacionDto.getPersona().getId()), personaService);
+            educacion.setPersona(personaDto);
         }
 
         return educacion;
+    }
+
+    
+    public void setPersona(PersonaDto persona) {
+    this.persona = persona;
+        persona.getEducaciones().add(this);
     }
     
 }
