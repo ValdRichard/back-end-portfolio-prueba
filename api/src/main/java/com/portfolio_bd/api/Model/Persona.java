@@ -25,21 +25,24 @@ import lombok.Setter;
 
 
 
-@Getter @Setter
+@Getter
+@Setter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Entity
 public class Persona {
-    
-    @Id @GeneratedValue(strategy=GenerationType.AUTO)
+
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
-    
+
     private String nombre;
     private String apellido;
+
     @OneToMany(mappedBy = "persona", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Educacion> educaciones = new ArrayList<>();
 
-    @Builder
-    public Persona(String nombre, String apellido, String fechaNacimiento, List<Educacion> educaciones) {
+    @Builder(builderMethodName = "getInstance")
+    private Persona(String nombre, String apellido, List<Educacion> educaciones) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.educaciones = educaciones != null ? educaciones : new ArrayList<>();
@@ -52,21 +55,21 @@ public class Persona {
     public Educacion obtenerEducacion(int indice) {
         return educaciones.get(indice);
     }
-    
+
     public void deleteEducacion(Long educacionId) {
-    for (Iterator<Educacion> it = educaciones.iterator(); it.hasNext();) {
-        Educacion educacion = it.next();
-        if (educacion.getId().equals(educacionId)) {
-            educacion.setPersona(null);
-            it.remove();
+        for (Iterator<Educacion> it = educaciones.iterator(); it.hasNext();) {
+            Educacion educacion = it.next();
+            if (educacion.getId().equals(educacionId)) {
+                educacion.setPersona(null);
+                it.remove();
+            }
         }
     }
-    }
-    
+
     public List<Educacion> getAllEducaciones() {
         return this.educaciones;
     }
-    
+
     public Long getId() {
         return id;
     }

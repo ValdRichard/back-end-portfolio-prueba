@@ -50,7 +50,7 @@ public class PersonaDto {
         return new PersonaDto(persona.getId(), persona.getNombre(), persona.getApellido(), educacionesDto);
     }
     public Persona toEntity() {
-        Persona persona = new Persona();
+        Persona persona = Persona.;
         persona.setId(id);
         persona.setNombre(nombre);
         persona.setApellido(apellido);
