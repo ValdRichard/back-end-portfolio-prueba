@@ -16,7 +16,6 @@ import java.util.List;
  */
 public interface IPersonaService {
     
-    public PersonaDto getPersona(Long id) ;
     
     public EducacionDto addEducacionToPersona(Long id, Educacion educacion);
     

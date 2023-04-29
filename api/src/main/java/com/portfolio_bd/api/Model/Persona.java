@@ -24,7 +24,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
-
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -41,11 +40,19 @@ public class Persona {
     @OneToMany(mappedBy = "persona", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Educacion> educaciones = new ArrayList<>();
 
-    @Builder(builderMethodName = "getInstance")
+    private static Persona instance;
+
     private Persona(String nombre, String apellido, List<Educacion> educaciones) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.educaciones = educaciones != null ? educaciones : new ArrayList<>();
+    }
+
+    public static Persona getInstance() {
+        if (instance == null) {
+            instance = new Persona(null, null, null);
+        }
+        return instance;
     }
 
     public void agregarEducacion(Educacion educacion) {

@@ -9,6 +9,7 @@ package com.portfolio_bd.api.Dto;
  * @author valdiviaricardo
  */
 import com.portfolio_bd.api.Model.Educacion;
+import com.portfolio_bd.api.Model.Persona;
 import com.portfolio_bd.api.Service.IPersonaService;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,7 +26,7 @@ public class EducacionDto {
     private String urlLogoEdu;
     private PersonaDto persona;
 
-    public EducacionDto(Educacion educacion, IPersonaService personaService) {
+    public EducacionDto(Educacion educacion, Persona persona) {
         this.id = educacion.getId();
         this.nivel = educacion.getNivel();
         this.tituloEdu = educacion.getTituloEdu();
@@ -61,8 +62,7 @@ public class EducacionDto {
         educacion.setUrlLogoEdu(educacionDto.getUrlLogoEdu());
 
         if (educacionDto.getPersona() != null) {
-            PersonaDto personaDto = PersonaDto.fromEntity(personaService.getPersona(educacionDto.getPersona().getId()), personaService);
-            educacion.setPersona(personaDto);
+            educacion.setPersona(PersonaDto.getInstance());
         }
 
         return educacion;

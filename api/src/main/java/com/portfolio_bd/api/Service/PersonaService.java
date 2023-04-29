@@ -28,12 +28,6 @@ public class PersonaService implements IPersonaService {
     @Autowired
     private PersonaRepository personaRepository;
 
-    @Override
-    public PersonaDto getPersona(Long id) {
-        Persona persona = personaRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Persona not found"));
-        return PersonaDto.getInstance();
-    }
 
     @Transactional
     @Override
