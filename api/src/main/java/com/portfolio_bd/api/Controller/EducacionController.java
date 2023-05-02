@@ -12,6 +12,7 @@ import com.portfolio_bd.api.Service.EducacionService;
 import com.portfolio_bd.api.Service.IEducacionService;
 import com.portfolio_bd.api.Service.IPersonaService;
 import com.portfolio_bd.api.Service.PersonaService;
+import java.util.HashSet;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -34,22 +35,25 @@ public class EducacionController {
     @Autowired
     private IEducacionService educacionService;
 
-    @Autowired
-    private IPersonaService personaService;
     
     @GetMapping("/getAll")
     public List<EducacionDto> getAll() {
         return educacionService.getAllEducaciones();
     }
 
-    @PostMapping("/create")
-    public PersonaDto createEducacion(@RequestBody Educacion educacion) {
-        PersonaDto persona = personaService.getPersona(1L);
-        educacion.setPersona(persona.toEntity());
+   @PostMapping("/create")
+    public EducacionDto createEducacion(@RequestBody EducacionDto educacionDto) {
+        Educacion educacion = new Educacion();
+        educacion.setNivel(educacionDto.getNivel());
+        educacion.setDescripcionEdu(educacionDto.getDescripcionEdu());
+        educacion.setInstitucionEdu(educacionDto.getInstitucionEdu());
+        educacion.setPeriodoEdu(educacionDto.getPeriodoEdu());
+        educacion.setTituloEdu(educacionDto.getTituloEdu());
+        educacion.setUrlLogoEdu(educacionDto.getUrlLogoEdu());
         educacionService.createEducacion(educacion);
-        return PersonaDto.getInstance();
+        return EducacionDto.fromEntity(educacion);
     }
-
+    
     @GetMapping("/{id}")
     public EducacionDto getById(@PathVariable Long id) {
         return educacionService.getEducacion(id);

@@ -42,15 +42,9 @@ public class Persona {
 
     private static Persona instance;
 
-    private Persona(String nombre, String apellido, List<Educacion> educaciones) {
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.educaciones = educaciones != null ? educaciones : new ArrayList<>();
-    }
-
     public static Persona getInstance() {
         if (instance == null) {
-            instance = new Persona(null, null, null);
+            instance = new Persona();
         }
         return instance;
     }

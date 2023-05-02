@@ -37,21 +37,17 @@ public class EducacionService implements IEducacionService{
     @Override
     public Educacion createEducacion(Educacion educacion) {
         Persona persona = Persona.getInstance();
-        
-//        Educacion educacion = new Educacion();
-//        educacion.setNivel(educacionDto.getNivel());
-//        educacion.setTituloEdu(educacionDto.getTituloEdu());
-//        educacion.setPeriodoEdu(educacionDto.getPeriodoEdu());
-//        educacion.setInstitucionEdu(educacionDto.getInstitucionEdu());
-//        educacion.setDescripcionEdu(educacionDto.getDescripcionEdu());
-//        educacion.setUrlLogoEdu(educacionDto.getUrlLogoEdu());
 
         if (educacion.getPersona() != null) {
+            persona = educacion.getPersona();
+        } else {
             educacion.setPersona(persona);
         }
+        persona.getEducaciones().add(educacion);
+
         return educacionRepository.save(educacion);
     }
-    
+
     @Override
     public void deleteEducacion(Long educacionId) {
         Educacion educacion = educacionRepository.findById(educacionId)

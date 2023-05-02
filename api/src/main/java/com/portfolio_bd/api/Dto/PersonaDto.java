@@ -10,7 +10,6 @@ package com.portfolio_bd.api.Dto;
  */
 import com.portfolio_bd.api.Model.Educacion;
 import com.portfolio_bd.api.Model.Persona;
-import com.portfolio_bd.api.Service.IPersonaService;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;

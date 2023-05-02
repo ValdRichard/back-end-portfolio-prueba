@@ -41,7 +41,6 @@ public class Educacion{
     }
 
     public Educacion(EducacionDto educacionDto) {
-        this.id = educacionDto.getId();
         this.nivel = educacionDto.getNivel();
         this.tituloEdu = educacionDto.getTituloEdu();
         this.periodoEdu = educacionDto.getPeriodoEdu();

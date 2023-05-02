@@ -33,7 +33,7 @@ public class EducacionDto {
         this.institucionEdu = educacion.getInstitucionEdu();
         this.descripcionEdu = educacion.getDescripcionEdu();
         this.urlLogoEdu = educacion.getUrlLogoEdu();
-        this.persona = PersonaDto.getInstance();
+        this.persona = PersonaDto.fromEntity(educacion.getPersona());
     }
     
     
