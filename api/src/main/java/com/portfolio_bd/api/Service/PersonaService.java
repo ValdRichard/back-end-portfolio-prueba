@@ -10,12 +10,11 @@ import com.portfolio_bd.api.Model.Educacion;
 import com.portfolio_bd.api.Model.Persona;
 import com.portfolio_bd.api.Repository.PersonaRepository;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.server.ResponseStatusException;
 
 /**
  *
@@ -28,55 +27,60 @@ public class PersonaService implements IPersonaService {
     @Autowired
     private PersonaRepository personaRepository;
 
-
+    
     @Transactional
     @Override
     public Persona createPersona(Persona persona) {
         return personaRepository.save(persona);
     }
-
+    
     @Override
     @Transactional
     public PersonaDto updatePersona(Long id, PersonaDto personaDto) {
-        Persona persona = personaRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Persona not found with id " + id));
-
+        Persona persona = personaRepository.getReferenceById(id);
         persona.setNombre(personaDto.getNombre());
         persona.setApellido(personaDto.getApellido());
 
         List<Educacion> educaciones = persona.getEducaciones();
         educaciones.clear();
         educaciones.addAll(personaDto.getEducaciones().stream()
-                .map(e -> EducacionDto.toEntity(e, this))
-                .collect(Collectors.toList()));
+                 .map(EducacionDto::toEntity)
+                 .collect(Collectors.toList()));
 
         personaRepository.save(persona);
-        return PersonaDto.getInstance();
+        return PersonaDto.fromEntity(persona);
     }
 
     @Override
     public EducacionDto addEducacionToPersona(Long id, Educacion educacion) {
-        PersonaDto personaDto = getPersona(id);
-        educacion.setPersona(PersonaDto.toEntity(personaDto, this));
-        personaDto.agregarEducacion(educacion);
+        PersonaDto personaDto = PersonaDto.getInstance();
+        educacion.setPersona(personaDto.toEntity());
+        personaDto.addEducacion(EducacionDto.fromEntity(educacion));
         updatePersona(id, personaDto);
         return EducacionDto.fromEntity(educacion);
     }
 
 
     @Override
-    public void deleteEducacionInPersona(Long personaId, Long educacionId) {
-        Persona persona = personaRepository.findById(personaId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Persona not found with id " + personaId));
+    public List<Educacion> deleteEducacionInPersona(Long personaId, Long educacionId) {
+        Persona persona = Persona.getInstance();
         persona.deleteEducacion(educacionId);
         personaRepository.save(persona);
+        return persona.getAllEducaciones();
     }
 
     @Override
     public List<EducacionDto> getAllEducacionesFromPersona(Long personaId) {
-        Persona persona = personaRepository.findById(personaId)
-                .orElseThrow(() -> new RuntimeException("Persona not found"));
+        Persona persona = Persona.getInstance();
         List<Educacion> educaciones = persona.getEducaciones();
-        return educaciones.stream().map(e -> EducacionDto.fromEntity(e, this)).collect(Collectors.toList());
+        return educaciones.stream()
+                .map(e -> EducacionDto.fromEntity(e))
+                .collect(Collectors.toList());
+    }
+    
+    @Override 
+    public PersonaDto getPersona(Long id){
+        Persona persona = personaRepository.getReferenceById(id);
+        return PersonaDto.fromEntity(persona);
     }
 }

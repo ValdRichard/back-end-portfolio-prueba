@@ -35,13 +35,20 @@ public class EducacionService implements IEducacionService{
         return EducacionDto.fromEntity(educacion);
     }
     @Override
-    public Educacion createEducacion(EducacionDto educacionDto, Long personaId) {
-        Persona persona = personaRepository.findById(personaId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Persona not found with id " + personaId));
-        Educacion educacion = new Educacion();
-        educacion.setTituloEdu(educacionDto.getTituloEdu());
-        educacion.setInstitucionEdu(educacionDto.getInstitucionEdu());
-        educacion.setPersona(persona);
+    public Educacion createEducacion(Educacion educacion) {
+        Persona persona = Persona.getInstance();
+        
+//        Educacion educacion = new Educacion();
+//        educacion.setNivel(educacionDto.getNivel());
+//        educacion.setTituloEdu(educacionDto.getTituloEdu());
+//        educacion.setPeriodoEdu(educacionDto.getPeriodoEdu());
+//        educacion.setInstitucionEdu(educacionDto.getInstitucionEdu());
+//        educacion.setDescripcionEdu(educacionDto.getDescripcionEdu());
+//        educacion.setUrlLogoEdu(educacionDto.getUrlLogoEdu());
+
+        if (educacion.getPersona() != null) {
+            educacion.setPersona(persona);
+        }
         return educacionRepository.save(educacion);
     }
     
@@ -53,7 +60,7 @@ public class EducacionService implements IEducacionService{
         persona.deleteEducacion(educacionId);
         personaRepository.save(persona);
         educacionRepository.delete(educacion);
-        PersonaDto personaDto = new PersonaDto(persona);
+        PersonaDto personaDto = PersonaDto.getInstance();
         EducacionDto educacionDto = new EducacionDto(educacion);
         educacionDto.setPersona(personaDto);
         personaDto.removeEducacion(educacionId);
@@ -80,7 +87,7 @@ public class EducacionService implements IEducacionService{
         educacion.setDescripcionEdu(educacionDto.getDescripcionEdu());
         educacion.setUrlLogoEdu(educacionDto.getUrlLogoEdu());
 
-        Educacion updatedEducacion = educacionRepository.save(educacion);
-        return EducacionDto.fromEntity(updatedEducacion);
+        educacionRepository.save(educacion);
+        return EducacionDto.fromEntity(educacion);
     }
 }

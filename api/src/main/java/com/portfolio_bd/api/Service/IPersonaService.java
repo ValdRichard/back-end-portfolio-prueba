@@ -16,14 +16,15 @@ import java.util.List;
  */
 public interface IPersonaService {
     
-    
     public EducacionDto addEducacionToPersona(Long id, Educacion educacion);
     
     public List<EducacionDto> getAllEducacionesFromPersona(Long personaId);
     
-    public void deleteEducacionInPersona(Long personaId, Long educacionId);            
+    public List<Educacion> deleteEducacionInPersona(Long personaId, Long educacionId);            
     
     public Persona createPersona(Persona persona);
     
     public PersonaDto updatePersona(Long id, PersonaDto personaDto);
+    
+    public PersonaDto getPersona(Long id);
 }

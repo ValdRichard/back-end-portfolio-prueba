@@ -6,11 +6,10 @@ package com.portfolio_bd.api.Controller;
 
 import com.portfolio_bd.api.Dto.EducacionDto;
 import com.portfolio_bd.api.Dto.PersonaDto;
-import com.portfolio_bd.api.Model.Educacion;
 import com.portfolio_bd.api.Model.Persona;
 import com.portfolio_bd.api.Service.IPersonaService;
-import com.portfolio_bd.api.Service.PersonaService;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author valdiviaricardo
  */
 @RestController
-@RequestMapping("/personas")
+@RequestMapping("/persona")
 public class PersonaController {
     
     @Autowired
@@ -34,9 +33,16 @@ public class PersonaController {
 
     @PostMapping("/create")
     public PersonaDto createPersona(@RequestBody PersonaDto personaDto) {
-        Persona persona = PersonaDto.toEntity(personaDto);
-        Persona personaCreated = personaService.createPersona(persona);
-        return PersonaDto.fromEntity(personaCreated);
+        Persona persona = Persona.getInstance();
+        persona.setNombre(personaDto.getNombre());
+        persona.setApellido(personaDto.getApellido());
+        persona.setEducaciones(personaDto.getEducaciones().stream()
+                .map(EducacionDto::toEntity)
+                .collect(Collectors.toList()));
+
+        personaService.createPersona(persona);
+
+        return PersonaDto.fromEntity(persona);
     }
     
     @GetMapping("/{id}")

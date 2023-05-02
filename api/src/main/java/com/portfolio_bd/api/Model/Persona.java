@@ -26,7 +26,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 public class Persona {
 
@@ -55,11 +55,11 @@ public class Persona {
         return instance;
     }
 
-    public void agregarEducacion(Educacion educacion) {
+    public void addEducacion(Educacion educacion) {
         educaciones.add(educacion);
     }
 
-    public Educacion obtenerEducacion(int indice) {
+    public Educacion getEducacion(int indice) {
         return educaciones.get(indice);
     }
 
