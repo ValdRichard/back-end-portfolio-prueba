@@ -18,7 +18,7 @@ public interface IEducacionService {
             
     List<EducacionDto> getAllEducaciones();
     
-    public Educacion createEducacion(Educacion educacion);
+    public EducacionDto createEducacion(Educacion educacion);
 //    public Educacion createEducacion(EducacionDto educacionDto) ;
     
     public void deleteEducacion(Long educacionId);

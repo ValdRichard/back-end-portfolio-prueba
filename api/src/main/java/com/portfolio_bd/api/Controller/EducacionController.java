@@ -6,6 +6,7 @@ package com.portfolio_bd.api.Controller;
 
 import com.portfolio_bd.api.Dto.EducacionDto;
 import com.portfolio_bd.api.Dto.PersonaDto;
+import com.portfolio_bd.api.Mapper.EducacionMapper;
 import com.portfolio_bd.api.Model.Educacion;
 import com.portfolio_bd.api.Model.Persona;
 import com.portfolio_bd.api.Service.EducacionService;
@@ -35,6 +36,8 @@ public class EducacionController {
     @Autowired
     private IEducacionService educacionService;
 
+    @Autowired
+    private IPersonaService personaService;
     
     @GetMapping("/getAll")
     public List<EducacionDto> getAll() {
@@ -43,15 +46,10 @@ public class EducacionController {
 
    @PostMapping("/create")
     public EducacionDto createEducacion(@RequestBody EducacionDto educacionDto) {
-        Educacion educacion = new Educacion();
-        educacion.setNivel(educacionDto.getNivel());
-        educacion.setDescripcionEdu(educacionDto.getDescripcionEdu());
-        educacion.setInstitucionEdu(educacionDto.getInstitucionEdu());
-        educacion.setPeriodoEdu(educacionDto.getPeriodoEdu());
-        educacion.setTituloEdu(educacionDto.getTituloEdu());
-        educacion.setUrlLogoEdu(educacionDto.getUrlLogoEdu());
+        Educacion educacion = EducacionMapper.toEntity(educacionDto);
         educacionService.createEducacion(educacion);
-        return EducacionDto.fromEntity(educacion);
+        personaService.addEducacionToPersona(1L, educacion);
+        return EducacionMapper.fromEntity(educacion);
     }
     
     @GetMapping("/{id}")

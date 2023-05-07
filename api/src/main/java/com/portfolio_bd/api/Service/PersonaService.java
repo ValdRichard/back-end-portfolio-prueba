@@ -6,6 +6,8 @@ package com.portfolio_bd.api.Service;
 
 import com.portfolio_bd.api.Dto.EducacionDto;
 import com.portfolio_bd.api.Dto.PersonaDto;
+import com.portfolio_bd.api.Mapper.EducacionMapper;
+import com.portfolio_bd.api.Mapper.PersonaMapper;
 import com.portfolio_bd.api.Model.Educacion;
 import com.portfolio_bd.api.Model.Persona;
 import com.portfolio_bd.api.Repository.PersonaRepository;
@@ -44,20 +46,20 @@ public class PersonaService implements IPersonaService {
         List<Educacion> educaciones = persona.getEducaciones();
         educaciones.clear();
         educaciones.addAll(personaDto.getEducaciones().stream()
-                 .map(EducacionDto::toEntity)
+                 .map(EducacionMapper::toEntity)
                  .collect(Collectors.toList()));
 
         personaRepository.save(persona);
-        return PersonaDto.fromEntity(persona);
+        return PersonaMapper.fromEntity(persona);
     }
 
     @Override
     public EducacionDto addEducacionToPersona(Long id, Educacion educacion) {
-        PersonaDto personaDto = PersonaDto.getInstance();
-        educacion.setPersona(personaDto.toEntity());
-        personaDto.addEducacion(EducacionDto.fromEntity(educacion));
-        updatePersona(id, personaDto);
-        return EducacionDto.fromEntity(educacion);
+        Persona persona = Persona.getInstance();
+        educacion.setPersona(persona);
+        persona.addEducacion(educacion);
+        updatePersona(id, PersonaMapper.fromEntity(persona));
+        return EducacionMapper.fromEntity(educacion);
     }
 
 
@@ -74,13 +76,13 @@ public class PersonaService implements IPersonaService {
         Persona persona = Persona.getInstance();
         List<Educacion> educaciones = persona.getEducaciones();
         return educaciones.stream()
-                .map(e -> EducacionDto.fromEntity(e))
+                .map(e -> EducacionMapper.fromEntity(e))
                 .collect(Collectors.toList());
     }
     
     @Override 
     public PersonaDto getPersona(Long id){
         Persona persona = personaRepository.getReferenceById(id);
-        return PersonaDto.fromEntity(persona);
+        return PersonaMapper.fromEntity(persona);
     }
 }

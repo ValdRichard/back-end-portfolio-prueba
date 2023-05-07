@@ -6,6 +6,8 @@ package com.portfolio_bd.api.Controller;
 
 import com.portfolio_bd.api.Dto.EducacionDto;
 import com.portfolio_bd.api.Dto.PersonaDto;
+import com.portfolio_bd.api.Mapper.EducacionMapper;
+import com.portfolio_bd.api.Mapper.PersonaMapper;
 import com.portfolio_bd.api.Model.Persona;
 import com.portfolio_bd.api.Service.IPersonaService;
 import java.util.List;
@@ -37,12 +39,12 @@ public class PersonaController {
         persona.setNombre(personaDto.getNombre());
         persona.setApellido(personaDto.getApellido());
         persona.setEducaciones(personaDto.getEducaciones().stream()
-                .map(EducacionDto::toEntity)
+                .map(EducacionMapper::toEntity)
                 .collect(Collectors.toList()));
 
         personaService.createPersona(persona);
 
-        return PersonaDto.fromEntity(persona);
+        return PersonaMapper.fromEntity(persona);
     }
     
     @GetMapping("/{id}")

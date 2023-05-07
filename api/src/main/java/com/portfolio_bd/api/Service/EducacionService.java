@@ -5,6 +5,7 @@
 package com.portfolio_bd.api.Service;
 import com.portfolio_bd.api.Dto.EducacionDto;
 import com.portfolio_bd.api.Dto.PersonaDto;
+import com.portfolio_bd.api.Mapper.EducacionMapper;
 import com.portfolio_bd.api.Model.Educacion;
 import com.portfolio_bd.api.Model.Persona;
 import com.portfolio_bd.api.Repository.EducacionRepository;
@@ -32,20 +33,15 @@ public class EducacionService implements IEducacionService{
     public EducacionDto getEducacion(Long id) {
         Educacion educacion = educacionRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Educacion not found"));
-        return EducacionDto.fromEntity(educacion);
+        return EducacionMapper.fromEntity(educacion);
     }
+    
     @Override
-    public Educacion createEducacion(Educacion educacion) {
-        Persona persona = Persona.getInstance();
-
-        if (educacion.getPersona() != null) {
-            persona = educacion.getPersona();
-        } else {
-            educacion.setPersona(persona);
-        }
-        persona.getEducaciones().add(educacion);
-
-        return educacionRepository.save(educacion);
+    public EducacionDto createEducacion(Educacion educacion) {
+        Persona persona = educacion.getPersona();
+        personaRepository.save(persona);
+        educacionRepository.save(educacion);
+        return EducacionMapper.fromEntity(educacion);
     }
 
     @Override
@@ -84,6 +80,6 @@ public class EducacionService implements IEducacionService{
         educacion.setUrlLogoEdu(educacionDto.getUrlLogoEdu());
 
         educacionRepository.save(educacion);
-        return EducacionDto.fromEntity(educacion);
+        return EducacionMapper.fromEntity(educacion);
     }
 }

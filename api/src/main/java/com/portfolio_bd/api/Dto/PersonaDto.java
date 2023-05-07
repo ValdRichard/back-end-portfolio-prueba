@@ -44,33 +44,4 @@ public class PersonaDto {
     public void addEducacion(EducacionDto educacionDto){
         this.educaciones.add(educacionDto);
     }
-     
-     public static PersonaDto fromEntity(Persona persona) {
-        PersonaDto personaDto = PersonaDto.getInstance();
-        personaDto.setId(persona.getId());
-        personaDto.setNombre(persona.getNombre());
-        personaDto.setApellido(persona.getApellido());
-         
-        List<EducacionDto> educacionesDto = persona.getEducaciones().stream()
-             .map(e -> new EducacionDto(e))
-             .collect(Collectors.toList());
-        personaDto.setEducaciones(educacionesDto);
-         return personaDto;
-  }
-     
-     public Persona toEntity() {
-         Persona persona = Persona.getInstance();
-         persona.setId(this.id);
-         persona.setNombre(this.nombre);
-         persona.setApellido(this.apellido);
- 
-         List<Educacion> educacionesP = this.educaciones.stream()
-                 .map(EducacionDto::toEntity)
-                 .collect(Collectors.toList());
-         educacionesP.forEach(educacion -> educacion.setPersona(persona));
- 
-         persona.setEducaciones(educacionesP);
-         return persona;
-     }
-    
 }
