@@ -8,13 +8,11 @@ package com.portfolio_bd.api.Dto;
  *
  * @author valdiviaricardo
  */
-import com.portfolio_bd.api.Model.Educacion;
-import com.portfolio_bd.api.Model.Persona;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 import lombok.Getter;
 import lombok.Setter;
+
 @Getter
 @Setter
 public class PersonaDto {
@@ -25,7 +23,7 @@ public class PersonaDto {
 
     private static PersonaDto instance = null;
 
-    private PersonaDto() {
+    public PersonaDto() {
     }
     
 

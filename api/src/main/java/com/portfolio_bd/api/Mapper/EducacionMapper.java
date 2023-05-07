@@ -5,6 +5,7 @@
 package com.portfolio_bd.api.Mapper;
 
 import com.portfolio_bd.api.Dto.EducacionDto;
+import com.portfolio_bd.api.Dto.PersonaDto;
 import com.portfolio_bd.api.Model.Educacion;
 import com.portfolio_bd.api.Model.Persona;
 
@@ -14,8 +15,13 @@ import com.portfolio_bd.api.Model.Persona;
  */
 public class EducacionMapper {
     public static EducacionDto fromEntity(Educacion educacion) {
-        EducacionDto dto = new EducacionDto(educacion);
-        return dto;
+        EducacionDto educacionDto = new EducacionDto(educacion);
+        PersonaDto personaDto = PersonaDto.getInstance();
+        personaDto.setId(educacion.getPersona().getId());
+        personaDto.setNombre(educacion.getPersona().getNombre());
+        personaDto.setApellido(educacion.getPersona().getApellido());
+        educacionDto.setPersona(personaDto);
+        return educacionDto;
     }
     
     public static Educacion toEntity(EducacionDto educacionDto) {

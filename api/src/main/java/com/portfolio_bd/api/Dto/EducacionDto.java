@@ -38,7 +38,6 @@ public class EducacionDto {
         this.institucionEdu = educacion.getInstitucionEdu();
         this.descripcionEdu = educacion.getDescripcionEdu();
         this.urlLogoEdu = educacion.getUrlLogoEdu();
-        this.persona = PersonaMapper.fromEntity(educacion.getPersona());
     }
     
     public void setPersona(PersonaDto persona) {
