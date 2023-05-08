@@ -42,23 +42,15 @@ public class PersonaService implements IPersonaService {
         Persona persona = personaRepository.getReferenceById(id);
         persona.setNombre(personaDto.getNombre());
         persona.setApellido(personaDto.getApellido());
-
-        List<Educacion> educaciones = persona.getEducaciones();
-        educaciones.clear();
-        educaciones.addAll(personaDto.getEducaciones().stream()
-                 .map(EducacionMapper::toEntity)
-                 .collect(Collectors.toList()));
-
         personaRepository.save(persona);
         return PersonaMapper.fromEntity(persona);
     }
-
+    
     @Override
-    public EducacionDto addEducacionToPersona(Long id, Educacion educacion) {
+    public EducacionDto addEducacionToPersona(Educacion educacion) {
         Persona persona = Persona.getInstance();
-        educacion.setPersona(persona);
         persona.addEducacion(educacion);
-        updatePersona(id, PersonaMapper.fromEntity(persona));
+        personaRepository.save(persona);
         return EducacionMapper.fromEntity(educacion);
     }
 

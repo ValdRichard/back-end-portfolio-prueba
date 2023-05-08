@@ -21,19 +21,8 @@ public class PersonaDto {
     private String apellido;
     private List<EducacionDto> educaciones = new ArrayList<>();
 
-    private static PersonaDto instance = null;
-
     public PersonaDto() {
     }
-    
-
-    public static PersonaDto getInstance() {
-        if (instance == null) {
-            instance = new PersonaDto();
-        }
-        return instance;
-    }
-    
     
     public void removeEducacion(Long educacionId) {
         this.educaciones.removeIf(educacionDto -> educacionDto.getId().equals(educacionId));

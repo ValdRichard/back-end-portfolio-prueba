@@ -39,7 +39,7 @@ public class PersonaController {
         persona.setNombre(personaDto.getNombre());
         persona.setApellido(personaDto.getApellido());
         persona.setEducaciones(personaDto.getEducaciones().stream()
-                .map(EducacionMapper::toEntity)
+                .map(educacionDto -> EducacionMapper.toEntity(educacionDto, persona))
                 .collect(Collectors.toList()));
 
         personaService.createPersona(persona);

@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
  */
 public class PersonaMapper {
     public static PersonaDto fromEntity(Persona persona) {
-        PersonaDto personaDto = PersonaDto.getInstance();
+        PersonaDto personaDto = new PersonaDto();
         personaDto.setId(persona.getId());
         personaDto.setNombre(persona.getNombre());
         personaDto.setApellido(persona.getApellido());
@@ -31,17 +31,13 @@ public class PersonaMapper {
          return personaDto;
     }
      
-    public Persona toEntity(PersonaDto personaDto) {
-         Persona persona = Persona.getInstance();
-         persona.setNombre(personaDto.getNombre());
-         persona.setApellido(personaDto.getApellido());
- 
-         List<Educacion> educacionesP = personaDto.getEducaciones().stream()
-                 .map(EducacionMapper::toEntity)
-                 .collect(Collectors.toList());
-         educacionesP.forEach(educacion -> educacion.setPersona(persona));
- 
-         persona.setEducaciones(educacionesP);
-         return persona;
+    public Persona toEntity(PersonaDto personaDto, Persona persona) {
+        persona.setNombre(personaDto.getNombre());
+        persona.setApellido(personaDto.getApellido());
+        List<Educacion> educacionesP = personaDto.getEducaciones().stream()
+                .map(educacionDto -> EducacionMapper.toEntity(educacionDto, persona))
+                .collect(Collectors.toList());
+        persona.setEducaciones(educacionesP);
+        return persona;
     }
 }

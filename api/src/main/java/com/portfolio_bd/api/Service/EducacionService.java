@@ -11,6 +11,7 @@ import com.portfolio_bd.api.Model.Persona;
 import com.portfolio_bd.api.Repository.EducacionRepository;
 import com.portfolio_bd.api.Repository.PersonaRepository;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -38,8 +39,6 @@ public class EducacionService implements IEducacionService{
     
     @Override
     public EducacionDto createEducacion(Educacion educacion) {
-        Persona persona = educacion.getPersona();
-        personaRepository.save(persona);
         educacionRepository.save(educacion);
         return EducacionMapper.fromEntity(educacion);
     }
@@ -52,7 +51,10 @@ public class EducacionService implements IEducacionService{
         persona.deleteEducacion(educacionId);
         personaRepository.save(persona);
         educacionRepository.delete(educacion);
-        PersonaDto personaDto = PersonaDto.getInstance();
+        PersonaDto personaDto = new PersonaDto();
+        personaDto.setId(educacion.getPersona().getId());
+        personaDto.setApellido(educacion.getPersona().getApellido());
+        personaDto.setNombre(educacion.getPersona().getNombre());
         EducacionDto educacionDto = new EducacionDto(educacion);
         educacionDto.setPersona(personaDto);
         personaDto.removeEducacion(educacionId);

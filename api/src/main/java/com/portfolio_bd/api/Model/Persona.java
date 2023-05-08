@@ -50,7 +50,7 @@ public class Persona {
     }
 
     public void addEducacion(Educacion educacion) {
-        educaciones.add(educacion);
+        this.educaciones.add(educacion);
     }
 
     public Educacion getEducacion(int indice) {

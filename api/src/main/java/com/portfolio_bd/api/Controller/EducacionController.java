@@ -46,9 +46,9 @@ public class EducacionController {
 
    @PostMapping("/create")
     public EducacionDto createEducacion(@RequestBody EducacionDto educacionDto) {
-        Educacion educacion = EducacionMapper.toEntity(educacionDto);
+        Educacion educacion = EducacionMapper.toEntity(educacionDto, Persona.getInstance());
+        personaService.addEducacionToPersona(educacion);
         educacionService.createEducacion(educacion);
-        personaService.addEducacionToPersona(1L, educacion);
         return EducacionMapper.fromEntity(educacion);
     }
     

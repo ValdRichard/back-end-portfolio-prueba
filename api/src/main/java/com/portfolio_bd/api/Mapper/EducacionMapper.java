@@ -16,7 +16,7 @@ import com.portfolio_bd.api.Model.Persona;
 public class EducacionMapper {
     public static EducacionDto fromEntity(Educacion educacion) {
         EducacionDto educacionDto = new EducacionDto(educacion);
-        PersonaDto personaDto = PersonaDto.getInstance();
+        PersonaDto personaDto = new PersonaDto();
         personaDto.setId(educacion.getPersona().getId());
         personaDto.setNombre(educacion.getPersona().getNombre());
         personaDto.setApellido(educacion.getPersona().getApellido());
@@ -24,7 +24,7 @@ public class EducacionMapper {
         return educacionDto;
     }
     
-    public static Educacion toEntity(EducacionDto educacionDto) {
+    public static Educacion toEntity(EducacionDto educacionDto, Persona persona) {
         Educacion educacion = new Educacion();
         educacion.setNivel(educacionDto.getNivel());
         educacion.setTituloEdu(educacionDto.getTituloEdu());
@@ -32,8 +32,7 @@ public class EducacionMapper {
         educacion.setInstitucionEdu(educacionDto.getInstitucionEdu());
         educacion.setDescripcionEdu(educacionDto.getDescripcionEdu());
         educacion.setUrlLogoEdu(educacionDto.getUrlLogoEdu());
-        educacion.setPersona(Persona.getInstance());
-
+        educacion.setPersona(persona);
         return educacion;
     }
 }
