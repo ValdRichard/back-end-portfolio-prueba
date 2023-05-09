@@ -8,6 +8,7 @@ package com.portfolio_bd.api.Dto;
  *
  * @author valdiviaricardo
  */
+import com.portfolio_bd.api.Model.Persona;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
@@ -20,8 +21,18 @@ public class PersonaDto {
     private String nombre;
     private String apellido;
     private List<EducacionDto> educaciones = new ArrayList<>();
-
-    public PersonaDto() {
+    
+//    private static PersonaDto instance;
+//
+//    public static synchronized PersonaDto getInstance() {
+//        if (instance == null) {
+//            instance = new PersonaDto();
+//        }
+//        return instance;
+//    }
+    
+    public PersonaDto(){
+        
     }
     
     public void removeEducacion(Long educacionId) {
@@ -31,4 +42,5 @@ public class PersonaDto {
     public void addEducacion(EducacionDto educacionDto){
         this.educaciones.add(educacionDto);
     }
+
 }

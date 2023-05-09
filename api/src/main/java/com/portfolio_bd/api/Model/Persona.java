@@ -42,13 +42,12 @@ public class Persona {
 
     private static Persona instance;
 
-    public static Persona getInstance() {
+    public static synchronized Persona getInstance() {
         if (instance == null) {
             instance = new Persona();
         }
         return instance;
     }
-
     public void addEducacion(Educacion educacion) {
         this.educaciones.add(educacion);
     }
@@ -65,13 +64,5 @@ public class Persona {
                 it.remove();
             }
         }
-    }
-
-    public List<Educacion> getAllEducaciones() {
-        return this.educaciones;
-    }
-
-    public Long getId() {
-        return id;
     }
 }

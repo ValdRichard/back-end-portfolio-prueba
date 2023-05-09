@@ -45,11 +45,12 @@ public class EducacionController {
     }
 
    @PostMapping("/create")
-    public EducacionDto createEducacion(@RequestBody EducacionDto educacionDto) {
+    public void createEducacion(@RequestBody EducacionDto educacionDto) {
         Educacion educacion = EducacionMapper.toEntity(educacionDto, Persona.getInstance());
-        personaService.addEducacionToPersona(educacion);
+//        personaService.addEducacionToPersona(educacion);
         educacionService.createEducacion(educacion);
-        return EducacionMapper.fromEntity(educacion);
+        personaService.addEducacionToPersona(educacion);
+//        return EducacionMapper.fromEntity(educacion, new PersonaDto(educacion.getPersona()));
     }
     
     @GetMapping("/{id}")

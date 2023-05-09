@@ -8,6 +8,7 @@ import com.portfolio_bd.api.Dto.EducacionDto;
 import com.portfolio_bd.api.Dto.PersonaDto;
 import com.portfolio_bd.api.Mapper.EducacionMapper;
 import com.portfolio_bd.api.Mapper.PersonaMapper;
+import com.portfolio_bd.api.Mapper.PersonaMapping;
 import com.portfolio_bd.api.Model.Educacion;
 import com.portfolio_bd.api.Model.Persona;
 import com.portfolio_bd.api.Repository.PersonaRepository;
@@ -29,29 +30,30 @@ public class PersonaService implements IPersonaService {
     @Autowired
     private PersonaRepository personaRepository;
 
+    @Autowired
+    private PersonaMapper mapper;
     
     @Transactional
     @Override
-    public Persona createPersona(Persona persona) {
+    public PersonaDto createPersona(PersonaDto personaDto) {
+        Persona persona = personaRepository.save(mapper.personaDtoToPersona(personaDto));
+        return mapper.personaToPersonaDto(persona);
+    }
+    
+    @Override
+    public Persona updatePersona(Long id, PersonaDto personaDto) {
+        Persona persona = personaRepository.getReferenceById(id);
+        persona.setNombre(personaDto.getNombre());
+        persona.setApellido(personaDto.getApellido());
         return personaRepository.save(persona);
     }
     
     @Override
-    @Transactional
-    public PersonaDto updatePersona(Long id, PersonaDto personaDto) {
-        Persona persona = personaRepository.getReferenceById(id);
-        persona.setNombre(personaDto.getNombre());
-        persona.setApellido(personaDto.getApellido());
-        personaRepository.save(persona);
-        return PersonaMapper.fromEntity(persona);
-    }
-    
-    @Override
-    public EducacionDto addEducacionToPersona(Educacion educacion) {
+    public PersonaDto addEducacionToPersona(Educacion educacion) {
         Persona persona = Persona.getInstance();
         persona.addEducacion(educacion);
         personaRepository.save(persona);
-        return EducacionMapper.fromEntity(educacion);
+        return PersonaMapping.fromEntity(persona);
     }
 
 
@@ -62,19 +64,19 @@ public class PersonaService implements IPersonaService {
         personaRepository.save(persona);
         return persona.getAllEducaciones();
     }
-
-    @Override
-    public List<EducacionDto> getAllEducacionesFromPersona(Long personaId) {
-        Persona persona = Persona.getInstance();
-        List<Educacion> educaciones = persona.getEducaciones();
-        return educaciones.stream()
-                .map(e -> EducacionMapper.fromEntity(e))
-                .collect(Collectors.toList());
-    }
+//
+//    @Override
+//    public List<EducacionDto> getAllEducacionesFromPersona(Long personaId) {
+//        Persona persona = Persona.getInstance();
+//        List<Educacion> educaciones = persona.getEducaciones();
+//        return educaciones.stream()
+//                .map(e -> EducacionMapper.fromEntity(e))
+//                .collect(Collectors.toList());
+//    }
     
     @Override 
     public PersonaDto getPersona(Long id){
         Persona persona = personaRepository.getReferenceById(id);
-        return PersonaMapper.fromEntity(persona);
+        return mapper.personaToPersonaDto(persona);
     }
 }

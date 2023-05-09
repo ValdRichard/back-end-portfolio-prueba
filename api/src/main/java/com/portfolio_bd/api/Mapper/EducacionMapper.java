@@ -13,13 +13,10 @@ import com.portfolio_bd.api.Model.Persona;
  *
  * @author valdiviaricardo
  */
+
 public class EducacionMapper {
-    public static EducacionDto fromEntity(Educacion educacion) {
+    public static EducacionDto fromEntity(Educacion educacion, PersonaDto personaDto) {
         EducacionDto educacionDto = new EducacionDto(educacion);
-        PersonaDto personaDto = new PersonaDto();
-        personaDto.setId(educacion.getPersona().getId());
-        personaDto.setNombre(educacion.getPersona().getNombre());
-        personaDto.setApellido(educacion.getPersona().getApellido());
         educacionDto.setPersona(personaDto);
         return educacionDto;
     }

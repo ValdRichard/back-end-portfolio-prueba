@@ -34,13 +34,14 @@ public class EducacionService implements IEducacionService{
     public EducacionDto getEducacion(Long id) {
         Educacion educacion = educacionRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Educacion not found"));
-        return EducacionMapper.fromEntity(educacion);
+        return EducacionMapper.fromEntity(educacion, new PersonaDto(educacion.getPersona()));
     }
     
     @Override
     public EducacionDto createEducacion(Educacion educacion) {
+        personaRepository.save(educacion.getPersona());
         educacionRepository.save(educacion);
-        return EducacionMapper.fromEntity(educacion);
+        return EducacionMapper.fromEntity(educacion, new PersonaDto(educacion.getPersona()));
     }
 
     @Override
@@ -51,10 +52,7 @@ public class EducacionService implements IEducacionService{
         persona.deleteEducacion(educacionId);
         personaRepository.save(persona);
         educacionRepository.delete(educacion);
-        PersonaDto personaDto = new PersonaDto();
-        personaDto.setId(educacion.getPersona().getId());
-        personaDto.setApellido(educacion.getPersona().getApellido());
-        personaDto.setNombre(educacion.getPersona().getNombre());
+        PersonaDto personaDto = new PersonaDto(educacion.getPersona());
         EducacionDto educacionDto = new EducacionDto(educacion);
         educacionDto.setPersona(personaDto);
         personaDto.removeEducacion(educacionId);
@@ -80,8 +78,8 @@ public class EducacionService implements IEducacionService{
         educacion.setInstitucionEdu(educacionDto.getInstitucionEdu());
         educacion.setDescripcionEdu(educacionDto.getDescripcionEdu());
         educacion.setUrlLogoEdu(educacionDto.getUrlLogoEdu());
-
+        PersonaDto personaDto = new PersonaDto(educacion.getPersona());
         educacionRepository.save(educacion);
-        return EducacionMapper.fromEntity(educacion);
+        return EducacionMapper.fromEntity(educacion, personaDto);
     }
 }

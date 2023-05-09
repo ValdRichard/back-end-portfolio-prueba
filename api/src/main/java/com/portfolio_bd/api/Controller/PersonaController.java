@@ -8,6 +8,7 @@ import com.portfolio_bd.api.Dto.EducacionDto;
 import com.portfolio_bd.api.Dto.PersonaDto;
 import com.portfolio_bd.api.Mapper.EducacionMapper;
 import com.portfolio_bd.api.Mapper.PersonaMapper;
+import com.portfolio_bd.api.Mapper.PersonaMapping;
 import com.portfolio_bd.api.Model.Persona;
 import com.portfolio_bd.api.Service.IPersonaService;
 import java.util.List;
@@ -33,18 +34,12 @@ public class PersonaController {
     @Autowired
     private IPersonaService personaService;
 
+    @Autowired 
+    private PersonaMapper mapper;
+            
     @PostMapping("/create")
     public PersonaDto createPersona(@RequestBody PersonaDto personaDto) {
-        Persona persona = Persona.getInstance();
-        persona.setNombre(personaDto.getNombre());
-        persona.setApellido(personaDto.getApellido());
-        persona.setEducaciones(personaDto.getEducaciones().stream()
-                .map(educacionDto -> EducacionMapper.toEntity(educacionDto, persona))
-                .collect(Collectors.toList()));
-
-        personaService.createPersona(persona);
-
-        return PersonaMapper.fromEntity(persona);
+        return personaService.createPersona(personaDto);
     }
     
     @GetMapping("/{id}")
@@ -58,11 +53,11 @@ public class PersonaController {
         personaService.updatePersona(id, personaDto);
         return ResponseEntity.noContent().build();
     }
-
-    @GetMapping("/{id}/educaciones")
-    public List<EducacionDto> getAllEducacionesFromPersona(@PathVariable Long id) {
-        List<EducacionDto> educacionesDto = personaService.getAllEducacionesFromPersona(id);
-        return educacionesDto;
-    }
+//
+//    @GetMapping("/{id}/educaciones")
+//    public List<EducacionDto> getAllEducacionesFromPersona(@PathVariable Long id) {
+//        List<EducacionDto> educacionesDto = personaService.getAllEducacionesFromPersona(id);
+//        return educacionesDto;
+//    }
     
 }
