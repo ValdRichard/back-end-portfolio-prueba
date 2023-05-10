@@ -5,15 +5,11 @@
 package com.portfolio_bd.api.Controller;
 
 import com.portfolio_bd.api.Dto.EducacionDto;
-import com.portfolio_bd.api.Dto.PersonaDto;
 import com.portfolio_bd.api.Mapper.EducacionMapper;
 import com.portfolio_bd.api.Model.Educacion;
 import com.portfolio_bd.api.Model.Persona;
-import com.portfolio_bd.api.Service.EducacionService;
 import com.portfolio_bd.api.Service.IEducacionService;
 import com.portfolio_bd.api.Service.IPersonaService;
-import com.portfolio_bd.api.Service.PersonaService;
-import java.util.HashSet;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -36,28 +32,11 @@ public class EducacionController {
     @Autowired
     private IEducacionService educacionService;
 
-    @Autowired
-    private IPersonaService personaService;
-    
-    @GetMapping("/getAll")
-    public List<EducacionDto> getAll() {
-        return educacionService.getAllEducaciones();
-    }
-
    @PostMapping("/create")
-    public void createEducacion(@RequestBody EducacionDto educacionDto) {
-        Educacion educacion = EducacionMapper.toEntity(educacionDto, Persona.getInstance());
-//        personaService.addEducacionToPersona(educacion);
-        educacionService.createEducacion(educacion);
-        personaService.addEducacionToPersona(educacion);
-//        return EducacionMapper.fromEntity(educacion, new PersonaDto(educacion.getPersona()));
+    public EducacionDto createEducacion(@RequestBody EducacionDto educacionDto) {
+        return educacionService.createEducacion(educacionDto);
     }
     
-    @GetMapping("/{id}")
-    public EducacionDto getById(@PathVariable Long id) {
-        return educacionService.getEducacion(id);
-    }
-
     @PutMapping("/{id}")
     public EducacionDto updateEducacion(@PathVariable Long id, @RequestBody EducacionDto educacionDto) {
         return educacionService.updateEducacion(id, educacionDto);
@@ -66,5 +45,15 @@ public class EducacionController {
     @DeleteMapping("/{educacionId}")
     public void deleteEducacion(@PathVariable Long educacionId) {
         educacionService.deleteEducacion(educacionId);
+    }
+    
+    @GetMapping("/getAll")
+    public List<EducacionDto> getAll() {
+        return educacionService.getAllEducaciones();
+    }
+        
+    @GetMapping("/{id}")
+    public EducacionDto getById(@PathVariable Long id) {
+        return educacionService.getEducacion(id);
     }
 }

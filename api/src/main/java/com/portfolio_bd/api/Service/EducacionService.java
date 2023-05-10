@@ -11,10 +11,10 @@ import com.portfolio_bd.api.Model.Persona;
 import com.portfolio_bd.api.Repository.EducacionRepository;
 import com.portfolio_bd.api.Repository.PersonaRepository;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 /**
@@ -27,59 +27,35 @@ public class EducacionService implements IEducacionService{
     @Autowired
     private EducacionRepository educacionRepository;
     
-    @Autowired 
-    private PersonaRepository personaRepository;
+    @Autowired
+    private EducacionMapper mapper;
     
     @Override
-    public EducacionDto getEducacion(Long id) {
-        Educacion educacion = educacionRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Educacion not found"));
-        return EducacionMapper.fromEntity(educacion, new PersonaDto(educacion.getPersona()));
-    }
-    
-    @Override
-    public EducacionDto createEducacion(Educacion educacion) {
-        personaRepository.save(educacion.getPersona());
-        educacionRepository.save(educacion);
-        return EducacionMapper.fromEntity(educacion, new PersonaDto(educacion.getPersona()));
+    public EducacionDto createEducacion(EducacionDto educacionDto) {
+        Educacion educacion = educacionRepository.save(mapper.educacionDtoToEducacion(educacionDto));
+        return mapper.educacionToEducacionDto(educacion);
     }
 
     @Override
-    public void deleteEducacion(Long educacionId) {
-        Educacion educacion = educacionRepository.findById(educacionId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Educacion not found with id " + educacionId));
-        Persona persona = educacion.getPersona();
-        persona.deleteEducacion(educacionId);
-        personaRepository.save(persona);
-        educacionRepository.delete(educacion);
-        PersonaDto personaDto = new PersonaDto(educacion.getPersona());
-        EducacionDto educacionDto = new EducacionDto(educacion);
-        educacionDto.setPersona(personaDto);
-        personaDto.removeEducacion(educacionId);
+    public ResponseEntity<Void> deleteEducacion(Long educacionId) {
+        educacionRepository.deleteById(educacionId);
+        return ResponseEntity.ok().build();
     }
 
-    
-    @Override
-    public List<EducacionDto> getAllEducaciones() {
-        List<Educacion> educaciones = educacionRepository.findAll();
-        return educaciones.stream()
-                          .map(EducacionDto::new)
-                          .collect(Collectors.toList());
-    }
-    
     @Override
     public EducacionDto updateEducacion(Long educacionId, EducacionDto educacionDto) {
-        Educacion educacion = educacionRepository.findById(educacionId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Persona not found with id " + educacionId));
+        Educacion educacion = educacionRepository.getReferenceById(educacionId);
+        educacionRepository.save(mapper.updateEducacionFromDto(educacionDto, educacion));
+        return mapper.educacionToEducacionDto(educacion);
+    }
 
-        educacion.setNivel(educacionDto.getNivel());
-        educacion.setTituloEdu(educacionDto.getTituloEdu());
-        educacion.setPeriodoEdu(educacionDto.getPeriodoEdu());
-        educacion.setInstitucionEdu(educacionDto.getInstitucionEdu());
-        educacion.setDescripcionEdu(educacionDto.getDescripcionEdu());
-        educacion.setUrlLogoEdu(educacionDto.getUrlLogoEdu());
-        PersonaDto personaDto = new PersonaDto(educacion.getPersona());
-        educacionRepository.save(educacion);
-        return EducacionMapper.fromEntity(educacion, personaDto);
+    @Override
+    public EducacionDto getEducacion(Long id) {
+        return mapper.educacionToEducacionDto(educacionRepository.getReferenceById(id));
+    }
+
+    @Override
+    public List<EducacionDto> getAllEducaciones() {
+        return mapper.allEducacionesToEducacionesDto(educacionRepository.findAll());
     }
 }

@@ -8,9 +8,9 @@ import com.portfolio_bd.api.Dto.EducacionDto;
 import com.portfolio_bd.api.Dto.PersonaDto;
 import com.portfolio_bd.api.Mapper.EducacionMapper;
 import com.portfolio_bd.api.Mapper.PersonaMapper;
-import com.portfolio_bd.api.Mapper.PersonaMapping;
 import com.portfolio_bd.api.Model.Persona;
 import com.portfolio_bd.api.Service.IPersonaService;
+import java.net.http.HttpResponse;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,24 +34,21 @@ public class PersonaController {
     @Autowired
     private IPersonaService personaService;
 
-    @Autowired 
-    private PersonaMapper mapper;
-            
     @PostMapping("/create")
     public PersonaDto createPersona(@RequestBody PersonaDto personaDto) {
         return personaService.createPersona(personaDto);
     }
     
-    @GetMapping("/{id}")
-    public PersonaDto getPersona(@PathVariable Long id) {
-        PersonaDto personaDto = personaService.getPersona(id);
+    @GetMapping("/get")
+    public PersonaDto getPersona() {
+        PersonaDto personaDto = personaService.getPersona(1L);
         return personaDto;
     }
     
-    @PutMapping("/{id}")
-    public ResponseEntity<Void> updatePersona(@PathVariable Long id, @RequestBody PersonaDto personaDto) {
-        personaService.updatePersona(id, personaDto);
-        return ResponseEntity.noContent().build();
+    @PutMapping("/update")
+    public ResponseEntity<Void> updatePersona(@RequestBody PersonaDto personaDto) {
+        personaService.updatePersona(personaDto);
+        return ResponseEntity.ok().build();
     }
 //
 //    @GetMapping("/{id}/educaciones")

@@ -8,7 +8,6 @@ package com.portfolio_bd.api.Dto;
  *
  * @author valdiviaricardo
  */
-import com.portfolio_bd.api.Model.Educacion;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,7 +21,6 @@ public class EducacionDto {
     private String institucionEdu;
     private String descripcionEdu;
     private String urlLogoEdu;
-    private PersonaDto persona;
 
     public EducacionDto(){   
     }

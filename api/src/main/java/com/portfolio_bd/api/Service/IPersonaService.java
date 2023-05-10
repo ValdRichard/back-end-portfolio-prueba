@@ -16,15 +16,9 @@ import java.util.List;
  */
 public interface IPersonaService {
     
-    public PersonaDto addEducacionToPersona(Educacion educacion);
-//    
-//    public List<EducacionDto> getAllEducacionesFromPersona(Long personaId);
-//    
-    public List<Educacion> deleteEducacionInPersona(Long personaId, Long educacionId);            
-    
     public PersonaDto createPersona(PersonaDto personaDto);
     
-    public Persona updatePersona(Long id, PersonaDto personaDto);
+    public PersonaDto updatePersona(PersonaDto personaDto);
     
     public PersonaDto getPersona(Long id);
 }

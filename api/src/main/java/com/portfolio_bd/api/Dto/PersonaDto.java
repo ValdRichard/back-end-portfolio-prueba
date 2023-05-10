@@ -20,7 +20,7 @@ public class PersonaDto {
     private Long id;
     private String nombre;
     private String apellido;
-    private List<EducacionDto> educaciones = new ArrayList<>();
+//    private List<EducacionDto> educaciones = new ArrayList<>();
     
 //    private static PersonaDto instance;
 //
@@ -31,16 +31,13 @@ public class PersonaDto {
 //        return instance;
 //    }
     
-    public PersonaDto(){
-        
-    }
-    
-    public void removeEducacion(Long educacionId) {
-        this.educaciones.removeIf(educacionDto -> educacionDto.getId().equals(educacionId));
-    }
-    
-    public void addEducacion(EducacionDto educacionDto){
-        this.educaciones.add(educacionDto);
-    }
+//    
+//    public void removeEducacion(Long educacionId) {
+//        this.educaciones.removeIf(educacionDto -> educacionDto.getId().equals(educacionId));
+//    }
+//    
+//    public void addEducacion(EducacionDto educacionDto){
+//        this.educaciones.add(educacionDto);
+//    }
 
 }

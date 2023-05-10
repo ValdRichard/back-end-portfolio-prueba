@@ -4,12 +4,11 @@
  */
 package com.portfolio_bd.api.Mapper;
 
-import com.portfolio_bd.api.Dto.EducacionDto;
 import com.portfolio_bd.api.Dto.PersonaDto;
-import com.portfolio_bd.api.Model.Educacion;
 import com.portfolio_bd.api.Model.Persona;
-import java.util.List;
+import com.portfolio_bd.api.Model.PersonaPersis;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 /**
  *
@@ -17,29 +16,16 @@ import org.mapstruct.Mapper;
  */
 @Mapper(componentModel = "spring")
 public interface PersonaMapper {
-    PersonaDto personaToPersonaDto(Persona persona);
-    
+    @Mapping(target="id", ignore = true)
     Persona personaDtoToPersona(PersonaDto personaDto);
     
-    EducacionDto educacionToEducacionDto(Educacion educacion);
+    PersonaPersis personaToPersonaPersis(Persona persona);
     
-    Educacion educacionDtoToEducacion(EducacionDto educacion);
+    PersonaDto personaToPersonaDto(Persona persona);
     
-    List<Educacion> allEducacionesToEducacionesDto(List<Educacion> educaciones);
-    
-    List<EducacionDto> allEducacionesDtoToEducaciones(List<EducacionDto> educacionesDto);
-    
+    PersonaDto personaPersisToPersonaDto(PersonaPersis personaPersis);
+            
     default Persona getPersonaInstance() {
-        return Persona.getInstance();
-    }
-    
-    
-    
-    default List<Educacion> getEducacionesFromPersona() {
-        return getPersonaInstance().getEducaciones();
-    }
-    
-    default void addEducacionToPersona(Educacion educacion) {
-        getPersonaInstance().addEducacion(educacion);
+      return Persona.getInstance();
     }
 }

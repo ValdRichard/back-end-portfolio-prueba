@@ -4,11 +4,6 @@
  */
 package com.portfolio_bd.api.Model;
 
-/**
- *
- * @author valdiviaricardo
- */
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,16 +11,19 @@ import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter @Setter
+/**
+ *
+ * @author valdiviaricardo
+ */
+@Getter
+@Setter
 @Entity
-public class Educacion{
+public class PersonaPersis {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String nivel;
-    private String tituloEdu;
-    private String periodoEdu;
-    private String institucionEdu;
-    private String descripcionEdu;
-    private String urlLogoEdu;
+    private String nombre;
+    private String apellido;
+    
+    public PersonaPersis(){
+    }
 }

@@ -8,38 +8,24 @@ package com.portfolio_bd.api.Model;
  *
  * @author valdiviaricardo
  */
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 public class Persona {
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
-
     private String nombre;
     private String apellido;
-
-    @OneToMany(mappedBy = "persona", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Educacion> educaciones = new ArrayList<>();
-
     private static Persona instance;
 
     public static synchronized Persona getInstance() {
@@ -48,21 +34,7 @@ public class Persona {
         }
         return instance;
     }
-    public void addEducacion(Educacion educacion) {
-        this.educaciones.add(educacion);
-    }
 
-    public Educacion getEducacion(int indice) {
-        return educaciones.get(indice);
-    }
-
-    public void deleteEducacion(Long educacionId) {
-        for (Iterator<Educacion> it = educaciones.iterator(); it.hasNext();) {
-            Educacion educacion = it.next();
-            if (educacion.getId().equals(educacionId)) {
-                educacion.setPersona(null);
-                it.remove();
-            }
-        }
-    }
+    private Persona() {
+    } 
 }

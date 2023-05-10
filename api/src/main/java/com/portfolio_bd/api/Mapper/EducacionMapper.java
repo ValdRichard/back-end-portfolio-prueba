@@ -1,35 +1,29 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
 package com.portfolio_bd.api.Mapper;
 
 import com.portfolio_bd.api.Dto.EducacionDto;
-import com.portfolio_bd.api.Dto.PersonaDto;
 import com.portfolio_bd.api.Model.Educacion;
-import com.portfolio_bd.api.Model.Persona;
+import java.util.List;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 
 /**
  *
  * @author valdiviaricardo
  */
-
-public class EducacionMapper {
-    public static EducacionDto fromEntity(Educacion educacion, PersonaDto personaDto) {
-        EducacionDto educacionDto = new EducacionDto(educacion);
-        educacionDto.setPersona(personaDto);
-        return educacionDto;
-    }
+@Mapper(componentModel = "spring")
+public interface EducacionMapper {
+    @Mapping(target = "id", ignore = true)
+    Educacion educacionDtoToEducacion(EducacionDto educacion);
     
-    public static Educacion toEntity(EducacionDto educacionDto, Persona persona) {
-        Educacion educacion = new Educacion();
-        educacion.setNivel(educacionDto.getNivel());
-        educacion.setTituloEdu(educacionDto.getTituloEdu());
-        educacion.setPeriodoEdu(educacionDto.getPeriodoEdu());
-        educacion.setInstitucionEdu(educacionDto.getInstitucionEdu());
-        educacion.setDescripcionEdu(educacionDto.getDescripcionEdu());
-        educacion.setUrlLogoEdu(educacionDto.getUrlLogoEdu());
-        educacion.setPersona(persona);
-        return educacion;
-    }
+    EducacionDto educacionToEducacionDto(Educacion educacion);
+    
+    @Mapping(target = "id", ignore = true)
+    Educacion updateEducacionFromDto(EducacionDto EducacionDto, @MappingTarget Educacion educacion);
+    
+    List<EducacionDto> allEducacionesToEducacionesDto(List<Educacion> educaciones);
 }
