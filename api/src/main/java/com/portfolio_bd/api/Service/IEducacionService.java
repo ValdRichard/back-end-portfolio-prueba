@@ -5,7 +5,6 @@
 package com.portfolio_bd.api.Service;
 
 import com.portfolio_bd.api.Dto.EducacionDto;
-import com.portfolio_bd.api.Model.Educacion;
 import java.util.List;
 import org.springframework.http.ResponseEntity;
 

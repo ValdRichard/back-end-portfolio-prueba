@@ -15,17 +15,22 @@ import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
 
-
-@Getter
 @Setter
+@Getter
 @Entity
 public class Persona {
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
-    private String nombre;
-    private String apellido;
+    private String imageBanner;
+    private String imageFotoPerfil;
+    private String imageInstagram;
+    private String imageLinkedin;
+    private String urlInstagram;
+    private String urlLinkedin;
+    private String mail;
+    private String nombreyApellido;
     private static Persona instance;
 
     public static synchronized Persona getInstance() {
@@ -37,4 +42,10 @@ public class Persona {
 
     private Persona() {
     } 
+    
+//    Para pruebas en postman: 
+//    {
+//        "nombre":"Ricardo",
+//        "apellido":"Valdivia",
+//    }
 }

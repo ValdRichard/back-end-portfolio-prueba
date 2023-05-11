@@ -4,8 +4,8 @@
  */
 package com.portfolio_bd.api.Controller;
 
-import com.portfolio_bd.api.Dto.EducacionDto;
-import com.portfolio_bd.api.Service.IEducacionService;
+import com.portfolio_bd.api.Dto.SoftSkillDto;
+import com.portfolio_bd.api.Service.ISoftSkillService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -22,34 +22,34 @@ import org.springframework.web.bind.annotation.RestController;
  * @author valdiviaricardo
  */
 @RestController
-@RequestMapping("/educaciones")
-public class EducacionController {
+@RequestMapping("/softSkills")
+public class SoftSkillController {
 
     @Autowired
-    private IEducacionService educacionService;
+    private ISoftSkillService softSkillService;
 
    @PostMapping("/create")
-    public EducacionDto createEducacion(@RequestBody EducacionDto educacionDto) {
-        return educacionService.createEducacion(educacionDto);
+    public SoftSkillDto createSoftSkill(@RequestBody SoftSkillDto softSkillDto) {
+        return softSkillService.createSoftSkill(softSkillDto);
     }
     
     @PutMapping("/{id}")
-    public EducacionDto updateEducacion(@PathVariable Long id, @RequestBody EducacionDto educacionDto) {
-        return educacionService.updateEducacion(id, educacionDto);
+    public SoftSkillDto updateSoftSkill(@PathVariable Long id, @RequestBody SoftSkillDto softSkillDto) {
+        return softSkillService.updateSoftSkill(id, softSkillDto);
     }
 
-    @DeleteMapping("/{educacionId}")
-    public void deleteEducacion(@PathVariable Long educacionId) {
-        educacionService.deleteEducacion(educacionId);
+    @DeleteMapping("/{softSkillId}")
+    public void deleteSoftSkill(@PathVariable Long softSkillId) {
+        softSkillService.deleteSoftSkill(softSkillId);
     }
     
     @GetMapping("/getAll")
-    public List<EducacionDto> getAll() {
-        return educacionService.getAllEducaciones();
+    public List<SoftSkillDto> getAll() {
+        return softSkillService.getAllSoftSkills();
     }
         
     @GetMapping("/{id}")
-    public EducacionDto getById(@PathVariable Long id) {
-        return educacionService.getEducacion(id);
+    public SoftSkillDto getById(@PathVariable Long id) {
+        return softSkillService.getSoftSkill(id);
     }
 }

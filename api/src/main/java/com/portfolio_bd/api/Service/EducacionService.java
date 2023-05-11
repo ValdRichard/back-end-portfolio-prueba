@@ -4,19 +4,13 @@
  */
 package com.portfolio_bd.api.Service;
 import com.portfolio_bd.api.Dto.EducacionDto;
-import com.portfolio_bd.api.Dto.PersonaDto;
 import com.portfolio_bd.api.Mapper.EducacionMapper;
 import com.portfolio_bd.api.Model.Educacion;
-import com.portfolio_bd.api.Model.Persona;
 import com.portfolio_bd.api.Repository.EducacionRepository;
-import com.portfolio_bd.api.Repository.PersonaRepository;
 import java.util.List;
-import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 /**
  *
  * @author valdiviaricardo

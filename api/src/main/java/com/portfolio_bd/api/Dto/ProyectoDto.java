@@ -4,23 +4,20 @@
  */
 package com.portfolio_bd.api.Dto;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  *
  * @author valdiviaricardo
  */
 
-import lombok.Getter;
-import lombok.Setter;
-
-
 @Setter
 @Getter
-public class EducacionDto {
+public class ProyectoDto {
     private Long id;
-    private String nivel;
-    private String tituloEdu;
-    private String periodoEdu;
-    private String institucionEdu;
-    private String descripcionEdu;
-    private String urlLogoEdu;
+    private String nombreProyecto;
+    private String descripcionProyecto;
+    private String imageProyecto;
+    private String repoUrl;
 }

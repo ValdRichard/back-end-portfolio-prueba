@@ -16,7 +16,8 @@ import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter @Setter
+@Setter
+@Getter 
 @Entity
 public class Educacion{
     @Id
@@ -28,4 +29,14 @@ public class Educacion{
     private String institucionEdu;
     private String descripcionEdu;
     private String urlLogoEdu;
+    
+//    Para pruebas en postman:
+//    {
+//    "nivel":"NivelPrueba",
+//    "tituloEdu":"TituloPrueba",
+//    "periodoEdu":"PeriodoPrueba",
+//    "institucionEdu":"InstitucionPrueba",
+//    "descripcionEdu":"DescrpcionPrueba",
+//    "urlLogoEdu":"LogoPrueba"
+//    }
 }

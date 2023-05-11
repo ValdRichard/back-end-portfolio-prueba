@@ -8,37 +8,27 @@ package com.portfolio_bd.api.Model;
  *
  * @author valdiviaricardo
  */
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import java.io.Serializable;
 import lombok.Getter;
 import lombok.Setter;
 
-@Entity
-@Setter @Getter
-public class SoftSkill implements Serializable {
-    
-    @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Long id;
-    @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "persona_id")
-    private Persona persona;
-    private String nombreHabilidad;
-    private String urlIcono;
-    
-   
-    public SoftSkill() {
-    }
 
-    public SoftSkill(Persona persona, String nombreHabilidad, String urlIcono) {
-        this.persona = persona;
-        this.nombreHabilidad = nombreHabilidad;
-        this.urlIcono = urlIcono;
-    }    
+@Setter 
+@Getter
+@Entity
+public class SoftSkill {   
+    @Id 
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    private String nombreHabilidad;
+    private String porcentaje;
+//    Para pruebas en postman:
+//    {
+//    "nombreHabilidad":"nombrePrueba",
+//    "urlIcono":"urlPrueba"
+//    }
 }

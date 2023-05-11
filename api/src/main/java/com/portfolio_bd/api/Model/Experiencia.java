@@ -8,43 +8,36 @@ package com.portfolio_bd.api.Model;
  *
  * @author valdiviaricardo
  */
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import java.io.Serializable;
 import lombok.Getter;
 import lombok.Setter;
 
+
+@Setter
+@Getter
 @Entity
-@Setter @Getter
-public class Experiencia implements Serializable {
+public class Experiencia{
     
-    @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Id 
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "persona_id")
-    private Persona persona;
-    private String puestoExpe;
-    private String periodoExpe;
-    private String organismoExpe;
-    private String descripcionExpe;
-    private String urlLogoExpe;
+    private String nombrePuesto;
+    private String nombreLugar;
+    private String descripcion;
+    private String fechaInicio;
+    private String fechaFinal;
+    private String imageExp;
     
-
-    public Experiencia() {
-    }
-
-    public Experiencia(Persona persona, String puestoExpe, String periodoExpe, String organismoExpe, String descripcionExpe, String urlLogoExpe) {
-        this.persona = persona;
-        this.puestoExpe = puestoExpe;
-        this.periodoExpe = periodoExpe;
-        this.organismoExpe = organismoExpe;
-        this.descripcionExpe = descripcionExpe;
-        this.urlLogoExpe = urlLogoExpe;
-    }
+//    Para pruebas en postman:
+//    {
+//    "puestoExpe":"puestoPrueba",
+//    "periodoExpe":"periodoPrueba",
+//    "organismoExpe":"organismoPrueba",
+//    "descripcionExpe":"descripcionPrueba",
+//    "urlLogoExpe":"urlPrueba"
+//    }
 }

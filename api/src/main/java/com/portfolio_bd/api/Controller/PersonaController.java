@@ -4,19 +4,11 @@
  */
 package com.portfolio_bd.api.Controller;
 
-import com.portfolio_bd.api.Dto.EducacionDto;
 import com.portfolio_bd.api.Dto.PersonaDto;
-import com.portfolio_bd.api.Mapper.EducacionMapper;
-import com.portfolio_bd.api.Mapper.PersonaMapper;
-import com.portfolio_bd.api.Model.Persona;
 import com.portfolio_bd.api.Service.IPersonaService;
-import java.net.http.HttpResponse;
-import java.util.List;
-import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -50,11 +42,4 @@ public class PersonaController {
         personaService.updatePersona(personaDto);
         return ResponseEntity.ok().build();
     }
-//
-//    @GetMapping("/{id}/educaciones")
-//    public List<EducacionDto> getAllEducacionesFromPersona(@PathVariable Long id) {
-//        List<EducacionDto> educacionesDto = personaService.getAllEducacionesFromPersona(id);
-//        return educacionesDto;
-//    }
-    
 }

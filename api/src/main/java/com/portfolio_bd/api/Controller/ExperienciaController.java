@@ -4,8 +4,8 @@
  */
 package com.portfolio_bd.api.Controller;
 
-import com.portfolio_bd.api.Dto.EducacionDto;
-import com.portfolio_bd.api.Service.IEducacionService;
+import com.portfolio_bd.api.Dto.ExperienciaDto;
+import com.portfolio_bd.api.Service.IExperienciaService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -22,34 +22,34 @@ import org.springframework.web.bind.annotation.RestController;
  * @author valdiviaricardo
  */
 @RestController
-@RequestMapping("/educaciones")
-public class EducacionController {
+@RequestMapping("/experiencias")
+public class ExperienciaController {
 
     @Autowired
-    private IEducacionService educacionService;
+    private IExperienciaService experienciaService;
 
    @PostMapping("/create")
-    public EducacionDto createEducacion(@RequestBody EducacionDto educacionDto) {
-        return educacionService.createEducacion(educacionDto);
+    public ExperienciaDto createExperiencia(@RequestBody ExperienciaDto experienciaDto) {
+        return experienciaService.createExperiencia(experienciaDto);
     }
     
     @PutMapping("/{id}")
-    public EducacionDto updateEducacion(@PathVariable Long id, @RequestBody EducacionDto educacionDto) {
-        return educacionService.updateEducacion(id, educacionDto);
+    public ExperienciaDto updateExperiencia(@PathVariable Long id, @RequestBody ExperienciaDto experienciaDto) {
+        return experienciaService.updateExperiencia(id, experienciaDto);
     }
 
-    @DeleteMapping("/{educacionId}")
-    public void deleteEducacion(@PathVariable Long educacionId) {
-        educacionService.deleteEducacion(educacionId);
+    @DeleteMapping("/{experienciaId}")
+    public void deleteExperiencia(@PathVariable Long experienciaId) {
+        experienciaService.deleteExperiencia(experienciaId);
     }
     
     @GetMapping("/getAll")
-    public List<EducacionDto> getAll() {
-        return educacionService.getAllEducaciones();
+    public List<ExperienciaDto> getAll() {
+        return experienciaService.getAllExperiencias();
     }
         
     @GetMapping("/{id}")
-    public EducacionDto getById(@PathVariable Long id) {
-        return educacionService.getEducacion(id);
+    public ExperienciaDto getById(@PathVariable Long id) {
+        return experienciaService.getExperiencia(id);
     }
 }
