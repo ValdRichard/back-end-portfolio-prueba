@@ -12,7 +12,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import java.io.Serializable;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,15 +19,16 @@ import lombok.Setter;
 @Setter 
 @Getter
 @Entity
-public class SoftSkill {   
+public class Skill{
     @Id 
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    private String nombreHabilidad;
+    private Long id; 
     private String porcentaje;
+    private String nombreHabilidad;
 //    Para pruebas en postman:
 //    {
-//    "nombreHabilidad":"nombrePrueba",
-//    "urlIcono":"urlPrueba"
+//    "nivelHabilidad":"nivelPrueba",
+//    "nombreHabilidad":"nivelPrueba",
+//    "urlIcono":"nivelPrueba"
 //    }
 }

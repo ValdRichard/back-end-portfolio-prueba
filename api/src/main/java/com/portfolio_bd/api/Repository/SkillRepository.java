@@ -4,7 +4,8 @@
  */
 package com.portfolio_bd.api.Repository;
 
-import com.portfolio_bd.api.Model.SoftSkill;
+
+import com.portfolio_bd.api.Model.Skill;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -13,6 +14,6 @@ import org.springframework.stereotype.Repository;
  * @author valdiviaricardo
  */
 @Repository
-public interface SoftSkillRepository extends JpaRepository <SoftSkill, Long> {
+public interface SkillRepository extends JpaRepository <Skill, Long> {
     
 }

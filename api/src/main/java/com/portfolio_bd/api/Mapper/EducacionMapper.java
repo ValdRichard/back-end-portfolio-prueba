@@ -23,7 +23,7 @@ public interface EducacionMapper {
     EducacionDto educacionToEducacionDto(Educacion educacion);
     
     @Mapping(target = "id", ignore = true)
-    Educacion updateEducacionFromDto(EducacionDto EducacionDto, @MappingTarget Educacion educacion);
+    Educacion updateEducacionFromDto(EducacionDto educacionDto, @MappingTarget Educacion educacion);
     
     List<EducacionDto> allEducacionesToEducacionesDto(List<Educacion> educaciones);
 }

@@ -6,9 +6,10 @@ package com.portfolio_bd.api.Mapper;
 
 import com.portfolio_bd.api.Dto.PersonaDto;
 import com.portfolio_bd.api.Model.Persona;
-import com.portfolio_bd.api.Model.PersonaPersis;
+import java.util.List;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 
 /**
  *
@@ -19,13 +20,10 @@ public interface PersonaMapper {
     @Mapping(target="id", ignore = true)
     Persona personaDtoToPersona(PersonaDto personaDto);
     
-    PersonaPersis personaToPersonaPersis(Persona persona);
-    
     PersonaDto personaToPersonaDto(Persona persona);
     
-    PersonaDto personaPersisToPersonaDto(PersonaPersis personaPersis);
-            
-    default Persona getPersonaInstance() {
-      return Persona.getInstance();
-    }
+    @Mapping(target = "id", ignore = true)
+    Persona updatePersonaFromDto(PersonaDto personaDto, @MappingTarget Persona persona);
+    
+    List<PersonaDto> allPersonasToPersonasDto(List<Persona> personas);   
 }

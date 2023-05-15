@@ -2,21 +2,17 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.portfolio_bd.api.Dto;
+package com.portfolio_bd.api.Security;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 /**
  *
  * @author valdiviaricardo
  */
 
-@Setter
-@Getter
-public class HardSkillDto {
-    private Long id; 
-    private String porcentaje;
-    private String nombreHabilidad;
-    private String imageLogo;
+@Data
+public class AuthCredentials {
+    private String email;
+    private String password;
 }

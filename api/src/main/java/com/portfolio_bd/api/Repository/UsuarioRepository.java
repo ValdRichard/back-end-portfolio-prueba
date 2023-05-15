@@ -4,7 +4,8 @@
  */
 package com.portfolio_bd.api.Repository;
 
-import com.portfolio_bd.api.Model.PersonaPersis;
+import com.portfolio_bd.api.Model.Usuario;
+import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -13,6 +14,8 @@ import org.springframework.stereotype.Repository;
  * @author valdiviaricardo
  */
 @Repository
-public interface PersonaPersisRepository extends JpaRepository <PersonaPersis, Long> {
+public interface UsuarioRepository extends JpaRepository <Usuario, Long> {
+   
+    Optional<Usuario> findOneByEmail(String email);
     
 }

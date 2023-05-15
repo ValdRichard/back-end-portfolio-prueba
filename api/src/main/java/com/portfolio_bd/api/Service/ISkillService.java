@@ -3,7 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
 package com.portfolio_bd.api.Service;
-import com.portfolio_bd.api.Dto.PersonaDto;
+
+import com.portfolio_bd.api.Dto.SkillDto;
 import java.util.List;
 import org.springframework.http.ResponseEntity;
 
@@ -11,16 +12,15 @@ import org.springframework.http.ResponseEntity;
  *
  * @author valdiviaricardo
  */
-
-public interface IPersonaService {
+public interface ISkillService {
     
-    public PersonaDto createPersona(PersonaDto personaDto);
+    public SkillDto createSkill(SkillDto skillDto);
     
-    public PersonaDto updatePersona(Long id, PersonaDto personaDto);
+    public ResponseEntity<Void> deleteSkill(Long skillId);
     
-    public ResponseEntity<Void> deletePersona(Long personaId) ;
+    public SkillDto updateSkill(Long skillId, SkillDto skillDto);
     
-    public PersonaDto getPersona(Long id);
-    
-    public List<PersonaDto> getAllPersonas();
+    public SkillDto getSkill(Long id);
+            
+    public List<SkillDto> getAllSkills();
 }

@@ -18,6 +18,5 @@ public class ProyectoDto {
     private Long id;
     private String nombreProyecto;
     private String descripcionProyecto;
-    private String imageProyecto;
     private String repoUrl;
 }

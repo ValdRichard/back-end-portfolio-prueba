@@ -17,10 +17,11 @@ public class PersonaDto {
     private Long id;
     private String imageBanner;
     private String imageFotoPerfil;
-    private String imageInstagram;
+    private String imageGithub;
     private String imageLinkedin;
-    private String urlInstagram;
+    private String urlGithub;
     private String urlLinkedin;
     private String mail;
     private String nombreyApellido;
+    private String descripcion;
 }

@@ -26,7 +26,6 @@ public class Proyecto{
     private Long id;
     private String nombreProyecto;
     private String descripcionProyecto;
-    private String imageProyecto;
     private String repoUrl;
     
 //    Para pruebas en postman:

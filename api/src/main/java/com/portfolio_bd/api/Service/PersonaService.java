@@ -7,12 +7,11 @@ package com.portfolio_bd.api.Service;
 import com.portfolio_bd.api.Dto.PersonaDto;
 import com.portfolio_bd.api.Mapper.PersonaMapper;
 import com.portfolio_bd.api.Model.Persona;
-import com.portfolio_bd.api.Model.PersonaPersis;
-import com.portfolio_bd.api.Repository.PersonaPersisRepository;
 import com.portfolio_bd.api.Repository.PersonaRepository;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -24,31 +23,36 @@ public class PersonaService implements IPersonaService {
 
     @Autowired
     private PersonaRepository personaRepository;
-
-    @Autowired
-    private PersonaPersisRepository personaPersisRepository;
     
     @Autowired
     private PersonaMapper mapper;
     
-    @Transactional
     @Override
     public PersonaDto createPersona(PersonaDto personaDto) {
         Persona persona = personaRepository.save(mapper.personaDtoToPersona(personaDto));
-        personaPersisRepository.save(mapper.personaToPersonaPersis(persona));
         return mapper.personaToPersonaDto(persona);
     }
-    
+
     @Override
-    public PersonaDto updatePersona(PersonaDto personaDto) {
-        Persona persona = personaRepository.save(mapper.personaDtoToPersona(personaDto));
-        personaPersisRepository.save(mapper.personaToPersonaPersis(persona));
+    public ResponseEntity<Void> deletePersona(Long personaId) {
+        personaRepository.deleteById(personaId);
+        return ResponseEntity.ok().build();
+    }
+
+    @Override
+    public PersonaDto updatePersona(Long personaId, PersonaDto personaDto) {
+        Persona persona = personaRepository.getReferenceById(personaId);
+        personaRepository.save(mapper.updatePersonaFromDto(personaDto, persona));
         return mapper.personaToPersonaDto(persona);
     }
-    
-    @Override 
-    public PersonaDto getPersona(Long id){
-        PersonaPersis persona = personaPersisRepository.getReferenceById(id);
-        return mapper.personaPersisToPersonaDto(persona);
+
+    @Override
+    public PersonaDto getPersona(Long id) {
+        return mapper.personaToPersonaDto(personaRepository.getReferenceById(id));
+    }
+
+    @Override
+    public List<PersonaDto> getAllPersonas() {
+        return mapper.allPersonasToPersonasDto(personaRepository.findAll());
     }
 }

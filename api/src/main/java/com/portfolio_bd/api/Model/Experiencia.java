@@ -30,7 +30,6 @@ public class Experiencia{
     private String descripcion;
     private String fechaInicio;
     private String fechaFinal;
-    private String imageExp;
     
 //    Para pruebas en postman:
 //    {

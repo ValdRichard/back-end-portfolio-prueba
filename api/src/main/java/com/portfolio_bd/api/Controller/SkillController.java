@@ -4,8 +4,8 @@
  */
 package com.portfolio_bd.api.Controller;
 
-import com.portfolio_bd.api.Dto.HardSkillDto;
-import com.portfolio_bd.api.Service.IHardSkillService;
+import com.portfolio_bd.api.Dto.SkillDto;
+import com.portfolio_bd.api.Service.ISkillService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -22,34 +22,34 @@ import org.springframework.web.bind.annotation.RestController;
  * @author valdiviaricardo
  */
 @RestController
-@RequestMapping("/hardSkills")
-public class HardSkillController {
+@RequestMapping("api/skills")
+public class SkillController {
 
     @Autowired
-    private IHardSkillService hardSkillService;
+    private ISkillService skillService;
 
    @PostMapping("/create")
-    public HardSkillDto createHardSkill(@RequestBody HardSkillDto hardSkillDto) {
-        return hardSkillService.createHardSkill(hardSkillDto);
+    public SkillDto createSkill(@RequestBody SkillDto skillDto) {
+        return skillService.createSkill(skillDto);
     }
     
     @PutMapping("/{id}")
-    public HardSkillDto updateHardSkill(@PathVariable Long id, @RequestBody HardSkillDto hardSkillDto) {
-        return hardSkillService.updateHardSkill(id, hardSkillDto);
+    public SkillDto updateSkill(@PathVariable Long id, @RequestBody SkillDto skillDto) {
+        return skillService.updateSkill(id, skillDto);
     }
 
-    @DeleteMapping("/{hardSkillId}")
-    public void deleteHardSkill(@PathVariable Long hardSkillId) {
-        hardSkillService.deleteHardSkill(hardSkillId);
+    @DeleteMapping("/{skillId}")
+    public void deleteSkill(@PathVariable Long skillId) {
+        skillService.deleteSkill(skillId);
     }
     
     @GetMapping("/getAll")
-    public List<HardSkillDto> getAll() {
-        return hardSkillService.getAllHardSkills();
+    public List<SkillDto> getAll() {
+        return skillService.getAllSkills();
     }
         
     @GetMapping("/{id}")
-    public HardSkillDto getById(@PathVariable Long id) {
-        return hardSkillService.getHardSkill(id);
+    public SkillDto getById(@PathVariable Long id) {
+        return skillService.getSkill(id);
     }
 }

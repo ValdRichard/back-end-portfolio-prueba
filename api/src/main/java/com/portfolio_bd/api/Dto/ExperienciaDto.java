@@ -20,5 +20,4 @@ public class ExperienciaDto {
     private String descripcion;
     private String fechaInicio;
     private String fechaFinal;
-    private String imageExp;
 }

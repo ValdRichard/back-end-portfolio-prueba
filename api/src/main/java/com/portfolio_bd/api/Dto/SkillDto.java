@@ -11,10 +11,11 @@ import lombok.Setter;
  *
  * @author valdiviaricardo
  */
+
 @Setter
 @Getter
-public class SoftSkillDto {
-    private Long id;
-    private String nombreHabilidad;
+public class SkillDto {
+    private Long id; 
     private String porcentaje;
+    private String nombreHabilidad;
 }

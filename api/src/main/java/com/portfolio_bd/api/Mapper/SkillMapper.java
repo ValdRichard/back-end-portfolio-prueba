@@ -4,8 +4,8 @@
  */
 package com.portfolio_bd.api.Mapper;
 
-import com.portfolio_bd.api.Dto.SoftSkillDto;
-import com.portfolio_bd.api.Model.SoftSkill;
+import com.portfolio_bd.api.Dto.SkillDto;
+import com.portfolio_bd.api.Model.Skill;
 import java.util.List;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -16,14 +16,14 @@ import org.mapstruct.MappingTarget;
  * @author valdiviaricardo
  */
 @Mapper(componentModel = "spring")
-public interface SoftSkillMapper {
+public interface SkillMapper {
     @Mapping(target = "id", ignore = true)
-    SoftSkill softSkillDtoToSoftSkill(SoftSkillDto softSkill);
+    Skill skillDtoToSkill(SkillDto Skill);
     
-    SoftSkillDto softSkillToSoftSkillDto(SoftSkill softSkill);
+    SkillDto skillToSkillDto(Skill Skill);
     
     @Mapping(target = "id", ignore = true)
-    SoftSkill updateSoftSkillFromDto(SoftSkillDto SoftSkillDto, @MappingTarget SoftSkill softSkill);
+    Skill updateSkillFromDto(SkillDto skillDto, @MappingTarget Skill skill);
     
-    List<SoftSkillDto> allSoftSkillsToSoftSkillsDto(List<SoftSkill> softSkills);
+    List<SkillDto> allSkillsToSkillsDto(List<Skill> skills);
 }

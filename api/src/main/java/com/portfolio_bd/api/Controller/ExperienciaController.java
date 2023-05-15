@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author valdiviaricardo
  */
 @RestController
-@RequestMapping("/experiencias")
+@RequestMapping("api/experiencias")
 public class ExperienciaController {
 
     @Autowired

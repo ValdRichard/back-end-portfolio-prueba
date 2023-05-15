@@ -17,10 +17,8 @@ import lombok.Setter;
 @Getter
 public class EducacionDto {
     private Long id;
-    private String nivel;
     private String tituloEdu;
     private String periodoEdu;
     private String institucionEdu;
     private String descripcionEdu;
-    private String urlLogoEdu;
 }

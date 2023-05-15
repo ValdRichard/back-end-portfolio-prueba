@@ -25,24 +25,13 @@ public class Persona {
     private Long id;
     private String imageBanner;
     private String imageFotoPerfil;
-    private String imageInstagram;
+    private String imageGithub;
     private String imageLinkedin;
-    private String urlInstagram;
+    private String urlGithub;
     private String urlLinkedin;
     private String mail;
     private String nombreyApellido;
-    private static Persona instance;
-
-    public static synchronized Persona getInstance() {
-        if (instance == null) {
-            instance = new Persona();
-        }
-        return instance;
-    }
-
-    private Persona() {
-    } 
-    
+    private String descripcion;
 //    Para pruebas en postman: 
 //    {
 //        "nombre":"Ricardo",

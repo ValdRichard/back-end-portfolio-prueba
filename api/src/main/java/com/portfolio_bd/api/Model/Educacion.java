@@ -23,13 +23,10 @@ public class Educacion{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String nivel;
     private String tituloEdu;
     private String periodoEdu;
     private String institucionEdu;
     private String descripcionEdu;
-    private String urlLogoEdu;
-    
 //    Para pruebas en postman:
 //    {
 //    "nivel":"NivelPrueba",
